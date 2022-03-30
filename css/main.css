@@ -1,0 +1,142 @@
+main > .container {
+    padding: 60px 15px 0;
+}
+
+.questions {
+    float: right;
+}
+
+.question {
+    border: 3px solid gray;
+    border-radius: 5px;
+    margin: 20px;
+    padding: 10px;
+}
+
+.avatar-question {
+    width: 100%;
+    border: solid 2px gray;
+    border-radius: 3px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:visited {
+    color: inherit;
+}
+
+a.a-question:hover {
+    color: gray;
+}
+
+a.a-tag:hover {
+    color: #0a53be;
+}
+
+.tag {
+    border: solid lightgray;
+    text-align: center;
+    border-radius: 8px;
+    padding: 5px;
+    display: inline-block;
+    margin: 2px 3px;
+}
+
+.hot-tags {
+    margin: 0 0 20px 0;
+}
+
+.hot-1 {
+    font-size: 1.4rem;
+    color: red;
+    text-decoration: underline red;
+}
+
+.hot-2 {
+    font-size: 1.2rem;
+    color: darkorange;
+    text-decoration: underline darkorange;
+}
+
+.hot-3 {
+    font-size: 1.0rem;
+    color: green;
+    text-decoration: underline green;
+}
+
+a.a-active-user:hover {
+    color: gray;
+}
+
+a.a-active-user {
+    text-decoration: underline darkorange;
+    line-height: 1.5em;
+    font-size: 1.2em;
+}
+
+.answers {
+    display: inline-block;
+
+    text-decoration: underline darkorange;
+    padding: 5px 2px;
+}
+
+.answers-counter{
+    color: #8c8a8a;
+}
+
+.like-counter-icon {
+    height: 30px;
+}
+
+.like-counter {
+    display: inline-block;
+    color: #a2a1a1;
+    border: solid lightgray;
+    border-radius: 8px;
+    padding: 10px 20px;
+}
+
+.pages {
+    border: solid lightgray;
+    text-align: center;
+    border-radius: 8px;
+    padding: 5px;
+    display: inline-block;
+    margin: 2px 3px;
+    font-size: 0.8em;
+
+}
+
+.search-icon {
+    padding: 8px 8px;
+    position: absolute;
+    height: 50px;
+}
+
+.search-form {
+    padding-left: 60px;
+}
+
+.logo-icon {
+    height: 60px;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.profile-icon {
+    width: 90px;
+    border-radius: 3px;
+    border: solid gray;
+}
+
+.control-panel {
+    width: auto;
+}
+
+.a-control:hover {
+    color: darkorange !important;
+}
