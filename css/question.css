@@ -2,13 +2,8 @@ main > .container {
     padding: 60px 15px 0;
 }
 
-.questions {
-    float: right;
-}
 
 .question {
-    border: 3px solid gray;
-    border-radius: 5px;
     margin: 20px;
     padding: 10px;
 }
@@ -77,17 +72,6 @@ a.a-active-user {
     font-size: 1.2em;
 }
 
-.answers {
-    display: inline-block;
-
-    text-decoration: underline darkorange;
-    padding: 5px 2px;
-}
-
-.answers-counter {
-    color: #8c8a8a;
-}
-
 .like-counter-icon {
     height: 30px;
 }
@@ -99,8 +83,8 @@ a.a-active-user {
 }
 
 .like-counter {
+    margin-top: 25%;
     display: inline-block;
-    margin-top: 20px;
     color: #a2a1a1;
     border: solid lightgray;
     border-radius: 8px;
@@ -146,4 +130,25 @@ a.a-active-user {
 
 .a-control:hover {
     color: darkorange !important;
+}
+
+.answer
+{
+    border-radius: 10px;
+    border: solid #f8f8f8;
+    margin-bottom: 30px;
+    padding: 20px 10px 20px 15%;
+}
+.avatar-user{
+    width: 100%;
+    border: solid 2px gray;
+    border-radius: 3px;
+
+}
+
+.your-answer{
+    margin-bottom: 8%;
+}
+.submit-your-answer{
+    margin-top: 5%;
 }
