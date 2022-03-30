@@ -137,24 +137,27 @@ a.a-active-user {
     margin-right: 10px;
 }
 
-.answer {
-    border-radius: 10px;
-    border: solid #f8f8f8;
-    margin-bottom: 30px;
-    padding: 20px 10px 20px 15%;
+.login-field {
+    margin-bottom: 15px;
 }
 
-.avatar-user {
-    width: 100%;
-    border: solid 2px gray;
-    border-radius: 3px;
 
-}
-
-.your-answer {
-    margin-bottom: 8%;
-}
-
-.submit-your-answer {
+.action-btn {
     margin-top: 5%;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.error-login {
+    color: red;
+    margin-bottom: 10px;
+}
+
+.note{
+    color: lightgray;
+    font-size: 1em;
+}
+.note:hover
+{
+    text-decoration: underline lightgray;
 }

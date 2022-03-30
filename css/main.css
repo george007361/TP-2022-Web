@@ -147,3 +147,8 @@ a.a-active-user {
 .a-control:hover {
     color: darkorange !important;
 }
+
+.ask-btn {
+    margin-left: 30px;
+    margin-right: 10px;
+}

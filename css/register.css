@@ -132,29 +132,40 @@ a.a-active-user {
     color: darkorange !important;
 }
 
-.ask-btn {
-    margin-left: 30px;
+.username {
+    color: darkorange;
+}
+
+.register-field {
+    margin-bottom: 15px;
+}
+
+.avatar-user-container {
+    padding: 10px;
+}
+
+.avatar-user-preview {
+    width: 100%;
+    border: solid gray;
+    border-radius: 8px;
+}
+
+.action-btn {
+    margin-top: 5%;
+    display: inline-block;
     margin-right: 10px;
 }
 
-.answer {
-    border-radius: 10px;
-    border: solid #f8f8f8;
-    margin-bottom: 30px;
-    padding: 20px 10px 20px 15%;
+.error-registration {
+    color: red;
+    margin-bottom: 10px;
 }
 
-.avatar-user {
-    width: 100%;
-    border: solid 2px gray;
-    border-radius: 3px;
-
+.note{
+    color: lightgray;
+    font-size: 1em;
 }
-
-.your-answer {
-    margin-bottom: 8%;
-}
-
-.submit-your-answer {
-    margin-top: 5%;
+.note:hover
+{
+    text-decoration: underline lightgray;
 }

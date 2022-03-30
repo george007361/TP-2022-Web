@@ -132,29 +132,26 @@ a.a-active-user {
     color: darkorange !important;
 }
 
-.ask-btn {
-    margin-left: 30px;
-    margin-right: 10px;
+.username {
+    color: darkorange;
 }
 
-.answer {
-    border-radius: 10px;
-    border: solid #f8f8f8;
-    margin-bottom: 30px;
-    padding: 20px 10px 20px 15%;
+.settings-field {
+    margin-bottom: 15px;
 }
 
-.avatar-user {
+.avatar-user-container {
+    padding: 10px;
+}
+
+.avatar-user-preview {
     width: 100%;
-    border: solid 2px gray;
-    border-radius: 3px;
-
+    border: solid gray;
+    border-radius: 8px;
 }
 
-.your-answer {
-    margin-bottom: 8%;
-}
-
-.submit-your-answer {
+.action-btn {
     margin-top: 5%;
+    display: inline-block;
+    margin-right: 10px;
 }

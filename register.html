@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>Askme George</title>
+    <title>Askme George: new question</title>
     <link rel="icon" href="./img/logo.png">
 
     <link rel="stylesheet" href="./css/bootstrap.min.css">
@@ -44,7 +44,9 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="./css/main.css" rel="stylesheet">
+    <link href="./css/register.css" rel="stylesheet">
+    <!--    <link href="./css/main.css" rel="stylesheet">-->
+
 </head>
 <body class="d-flex flex-column h-100">
 
@@ -71,29 +73,22 @@
 
                     <button class="btn btn-outline-success" type="submit">Go!</button>
                 </form>
+
                 <div class="navbar-text ask-btn">
-                    <a href="./ask.html"><button class="btn btn-outline-success" type="button">Ask</button></a>
+                    <a href="./ask.html">
+                        <button class="btn btn-outline-success" type="button">Ask</button>
+                    </a>
                 </div>
             </div>
             <div class="navbar-nav ms-auto nav-item">
                 <div class="row">
-                    <div class="col-4 ">
-                        <img src="./img/user-icon.png" alt="" class="profile-icon">
-                    </div>
-                    <div class="col-8">
-                        <div class="row">
-                            <div class="navbar-text">Username</div>
+                    <div class="row navbar-text">
+                        <div class="col-5 ">
+                            <a href="./login.html" class="a-control">Login</a>
                         </div>
-                        <div class="row">
-                            <div class="row navbar-text">
-                                <div class="col-5 ">
-                                    <a href="./settings.html" class="a-control">Settings</a>
-                                </div>
-                                <div class="col-1"></div>
-                                <div class="col-5  text-nowrap">
-                                    <a href="./login.html" class="a-control navbar-text">Log out</a>
-                                </div>
-                            </div>
+                        <div class="col-1"></div>
+                        <div class="col-5  text-nowrap">
+                            <a href="./register.html" class="a-control navbar-text">Register</a>
                         </div>
                     </div>
                 </div>
@@ -107,56 +102,80 @@
     <div class="container">
         <div class="row">
             <div class="col-8">
+                <hr>
+                <h2>Registration:</h2>
+                <div class="error-registration">This user already exists</div>
                 <div class="row">
-                    <div class="col-6">
-                        <h2>Questions</h2>
-                    </div>
-                    <div class="col-6">
-                        <h3>Hot questions</h3>
-                    </div>
-                </div>
-                <div class="row question">
-                    <div class="row">
-                        <div class="col-3">
-                            <img src="./img/car.jpg" alt="" class="avatar-question">
-
-                            <span class="like-counter">
-                                    <a href=""><img src="./img/like.jpg" alt="" class="like-counter-icon"></a>
-                                    123
-                            </span>
+                    <form>
+                        <div class="row register-field">
+                            <div class="col-3">
+                                Login:
+                            </div>
+                            <div class="col-9">
+                                <input type="email" class="form-control" id="title" placeholder="username_123">
+                            </div>
                         </div>
-                        <div class="col-9">
-                            <h3><a href="./question.html" class="a-question">Question 1</a></h3>
-                            <p>Prepared by experienced English teachers, the texts, articles and conversations are brief
-                                and appropriate to your level of proficiency. T
-                                ake the multiple-choice quiz following each text, and you'll get the results
-                                immediately. You will feel both challenged and accomplished!
-                                You can even download (as PDF) and print the texts and exercises. It's enjoyable, fun
-                                and free</p>
+                        <div class="row register-field">
+                            <div class="col-3">
+                                Email:
+                            </div>
+                            <div class="col-9">
+                                <input type="email" class="form-control" id="email" placeholder="username_123@mail.ru">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4"></div>
-                        <div class="col-8">
-                            <div class="row">
-                                <div class="col-4">
-                                    <span class="answers text-nowrap"><a href="">See answers: <ans
-                                            class="answers-counter">12</ans></a>
-                                    </span>
+                        <div class="row register-field">
+                            <div class="col-3 new-question-field-tags">
+                                Nickname:
+                            </div>
+                            <div class="col-9">
+                                <input type="email" class="form-control" id="nickname" placeholder="Username">
+                            </div>
+                        </div>
+                        <div class="row register-field">
+                            <div class="col-3 new-question-field-tags">
+                                Password:
+                            </div>
+                            <div class="col-9">
+                                <input type="password" class="form-control" id="passwd" placeholder="">
+                            </div>
+                        </div>
+                        <div class="row register-field">
+                            <div class="col-3 new-question-field-tags">
+                                Nickname:
+                            </div>
+                            <div class="col-9">
+                                <input type="password" class="form-control" id="rep-passwd" placeholder="">
+                            </div>
+                        </div>
+                        <div class="row register-field">
+                            <div class="col-3 new-question-field-tags">
+                                Upload avatar:
+                            </div>
+                            <div class="col-9">
+                                <div class="col-5">
+                                    <div class="row avatar-user-container">
+                                        <img src="./img/user2.jpg" alt="" class="avatar-user-preview">
+                                    </div>
                                 </div>
-                                <div class="col-8">
-                                    <span>
-                                        Tags:
-                                    </span>
-                                    <span class="tag"><a href="./tag.html">Cars</a></span>
-                                    <span class="tag"><a href="">Help</a></span>
-
+                                <div class="row">
+                                    <input type="file" class="form-control" id="uploadAvatar"/>
                                 </div>
                             </div>
                         </div>
+                        <input type="submit" hidden id="submit-register-form">
+                    </form>
+                    <div class="row register-field">
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                        <span>
+                            <label for="submit-register-form" class="action-btn">
+                                <button class="btn btn-primary">Register!</button>
+                            </label>
+                            <a href="./login.html"><note class="note">Have an account?</note></a>
+                        </span>
+                        </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="col-1"></div>

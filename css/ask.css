@@ -132,7 +132,11 @@ a.a-active-user {
     color: darkorange !important;
 }
 
-.question-field
-{
+.question-field {
     margin-bottom: 15px;
+}
+
+.ask-btn {
+    margin-left: 30px;
+    margin-right: 10px;
 }
