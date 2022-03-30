@@ -1,0 +1,17 @@
+.question{
+    border: solid lightgray  !important;
+}
+
+.answer {
+    border-radius: 10px;
+    border: solid #efefef;
+    margin: 5px 5px 25px 55px;
+    padding: 20px 10px;
+}
+
+.avatar-user {
+    width: 100%;
+    border: solid 2px gray;
+    border-radius: 3px;
+    margin: 5px 5px 15px 5px;
+}

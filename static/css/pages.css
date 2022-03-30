@@ -1,0 +1,15 @@
+
+.pages {
+    color: gray;
+    border: solid lightgray;
+    text-align: center;
+    border-radius: 8px;
+    padding: 8px;
+    display: inline-block;
+    margin: 2px 3px;
+    font-size: 1em;
+}
+
+.disabled {
+    color: #505050;
+}

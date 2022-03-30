@@ -1,0 +1,40 @@
+.tag {
+    border: solid lightgray;
+    text-align: center;
+    border-radius: 8px;
+    padding: 5px;
+    display: inline-block;
+    margin: 2px 3px;
+}
+
+.hot-tags {
+    margin: 0 0 20px 0;
+}
+
+.hot-1 {
+    font-size: 1.4rem;
+    color: red;
+    text-decoration: underline red;
+}
+
+.hot-2 {
+    font-size: 1.2rem;
+    color: darkorange;
+    text-decoration: underline darkorange;
+}
+
+.hot-3 {
+    font-size: 1.0rem;
+    color: green;
+    text-decoration: underline green;
+}
+
+a.a-active-user:hover {
+    color: gray;
+}
+
+a.a-active-user {
+    text-decoration: underline darkorange;
+    line-height: 1.5em;
+    font-size: 1.2em;
+}

@@ -1,0 +1,51 @@
+main > .container {
+    padding: 60px 15px 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:visited {
+    color: inherit;
+}
+
+a.a-question:hover {
+    color: inherit;
+}
+
+.search-icon {
+    padding: 8px 8px;
+    position: absolute;
+    height: 50px;
+}
+
+.search-form {
+    padding-left: 60px;
+}
+
+.logo-icon {
+    height: 60px;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.profile-icon {
+    width: 90px;
+    border-radius: 3px;
+    border: solid gray;
+}
+
+.control-panel {
+    width: auto;
+}
+
+.a-control:hover {
+    color: darkorange !important;
+}
+
+.ask-btn {
+    margin-left: 30px;
+    margin-right: 10px;
+}

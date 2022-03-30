@@ -1,0 +1,60 @@
+
+.question {
+    border: 3px solid gray;
+    border-radius: 5px;
+    margin: 5px 5px 25px 5px;
+    padding: 10px;
+}
+
+.question-text {
+    /*text-overflow: ellipsis;*/
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
+    overflow-wrap: break-word;
+}
+
+.avatar-question {
+    width: 100%;
+    border: solid 2px gray;
+    border-radius: 3px;
+    margin: 5px 5px 15px 5px;
+}
+
+.like-counter-icon {
+    height: 30px;
+    margin-right: 8px;
+}
+
+.like-counter-icon:hover {
+    -webkit-box-shadow: 11px 11px 23px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 11px 11px 23px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 11px 11px 23px 0px rgba(34, 60, 80, 0.2);
+}
+
+.like-counter {
+    display: inline-block;
+    color: #a2a1a1;
+    border: solid lightgray;
+    border-radius: 8px;
+    padding: 10px 20px;
+}
+
+.tag {
+    border: solid lightgray;
+    text-align: center;
+    border-radius: 8px;
+    padding: 5px;
+    display: inline-block;
+    margin: 2px 3px;
+}
+
+.answers {
+    display: inline-block;
+
+    text-decoration: underline darkorange;
+    padding: 5px 2px;
+}
+
+.answers-counter {
+    color: #8c8a8a;
+}

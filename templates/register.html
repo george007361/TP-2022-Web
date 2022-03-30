@@ -1,0 +1,92 @@
+{% extends "inc/base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Signup</title>
+{% endblock title %}
+
+{% block custom_styles %}
+    <link rel="stylesheet" href="{% static "/css/register.css" %}">
+{% endblock custom_styles %}
+
+{% block content %}
+    <hr>
+    <h2>Registration:</h2>
+    <div class="error-registration">This user already exists</div>
+    <div class="row">
+        <form>
+            <div class="row register-field">
+                <div class="col-3">
+                    Login:
+                </div>
+                <div class="col-9">
+                    <input type="email" class="form-control" id="title" placeholder="username_123">
+                </div>
+            </div>
+            <div class="row register-field">
+                <div class="col-3">
+                    Email:
+                </div>
+                <div class="col-9">
+                    <input type="email" class="form-control" id="email" placeholder="username_123@mail.ru">
+                </div>
+            </div>
+            <div class="row register-field">
+                <div class="col-3 new-question-field-tags">
+                    Nickname:
+                </div>
+                <div class="col-9">
+                    <input type="email" class="form-control" id="nickname" placeholder="Username">
+                </div>
+            </div>
+            <div class="row register-field">
+                <div class="col-3 new-question-field-tags">
+                    Password:
+                </div>
+                <div class="col-9">
+                    <input type="password" class="form-control" id="passwd" placeholder="">
+                </div>
+            </div>
+            <div class="row register-field">
+                <div class="col-3 new-question-field-tags">
+                    Nickname:
+                </div>
+                <div class="col-9">
+                    <input type="password" class="form-control" id="rep-passwd" placeholder="">
+                </div>
+            </div>
+            <div class="row register-field">
+                <div class="col-3 new-question-field-tags">
+                    Upload avatar:
+                </div>
+                <div class="col-9">
+                    <div class="col-5">
+                        <div class="row avatar-user-container">
+                            <img src="static/img/user2.jpg" alt="" class="avatar-user-preview">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input type="file" class="form-control" id="uploadAvatar"/>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" hidden id="submit-register-form">
+        </form>
+        <div class="row register-field">
+            <div class="col-3"></div>
+            <div class="col-9">
+                        <span>
+                            <label for="submit-register-form" class="action-btn">
+                                <button class="btn btn-primary">Register!</button>
+                            </label>
+                            <a href="/login/"><note class="note">Have an account?</note></a>
+                        </span>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+
+{% block side_panel %}
+    {% include "inc/sp_hottags_actusers.html" %}
+{% endblock side_panel %}

@@ -1,0 +1,23 @@
+.register-field {
+    margin-bottom: 15px;
+}
+
+.action-btn {
+    margin-top: 5%;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.error-registration {
+    color: red;
+    margin-bottom: 10px;
+}
+
+.note {
+    color: lightgray;
+    font-size: 1em;
+}
+
+.note:hover {
+    text-decoration: underline lightgray;
+}

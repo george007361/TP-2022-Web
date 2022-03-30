@@ -1,0 +1,23 @@
+.username {
+    color: darkorange;
+}
+
+.settings-field {
+    margin-bottom: 15px;
+}
+
+.avatar-user-container {
+    padding: 10px;
+}
+
+.avatar-user-preview {
+    width: 100%;
+    border: solid gray;
+    border-radius: 8px;
+}
+
+.action-btn {
+    margin-top: 5%;
+    display: inline-block;
+    margin-right: 10px;
+}

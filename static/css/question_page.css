@@ -1,0 +1,11 @@
+.answers {
+    display: none;
+}
+
+.your-answer {
+    margin-bottom: 8%;
+}
+
+.submit-your-answer {
+    margin-top: 5%;
+}

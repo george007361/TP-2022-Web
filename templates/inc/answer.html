@@ -1,0 +1,21 @@
+{% load static %}
+
+<div class="row answer">
+    <div class="row">
+        <div class="col-3">
+            <img src="{% static "img/user-" %}{{ answer.id }}.jpg" alt="" class="avatar-user">
+        </div>
+        <div class="col-9">
+            <p>{{ answer.text }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <hr>
+        <div class="col-3">
+            <div class="d-flex justify-content-center">
+            <span class="like-counter"><a href=""><img src="{% static "img/like.jpg" %}" alt=""
+                                                       class="like-counter-icon"></a>{{ answer.like_count }}</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+{% load static %}
+<header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark navbar-fix bg-dark">
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="{% url "index" %}">
+                <img src="{% static "/img/logo.png" %}" alt="" class="logo-icon">
+                <small>Askme George</small>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
+                <form class="d-flex w-auto">
+                    <img src="{% static "/img/search.png" %}" alt="" class="search-icon">
+                    <input class="form-control me-2 search-form" type="search" placeholder="Search question"
+                           aria-label="Search">
+
+                    <button class="btn btn-outline-success" type="submit">Go!</button>
+                </form>
+                <div class="navbar-text ask-btn">
+                    <a href="{% url "ask" %}">
+                        <button class="btn btn-outline-success" type="button">Ask</button>
+                    </a>
+                </div>
+            </div>
+            <div class="navbar-nav ms-auto nav-item">
+                <div class="row">
+                    <div class="col-4 ">
+                        <img src="{% static "/img/user-icon.png" %}" alt="" class="profile-icon">
+                    </div>
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="navbar-text">Username</div>
+                        </div>
+                        <div class="row">
+                            <div class="row navbar-text">
+                                <div class="col-5 ">
+                                    <a href="{% url "settings" %}" class="a-control">Settings</a>
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="col-5  text-nowrap">
+                                    <a href="{% url "login" %}" class="a-control navbar-text">Log out</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

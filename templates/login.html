@@ -1,0 +1,55 @@
+{% extends "inc/base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Login</title>
+{% endblock title %}
+
+{% block custom_styles %}
+    <link href="{% static "css/settings.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "/css/login.css" %}">
+{% endblock custom_styles %}
+
+{% block content %}
+    <hr>
+    <h2>Login:</h2>
+    <div class="error-login">Sorry! Wrong username of password.</div>
+    <div class="row">
+        <form>
+            <div class="row login-field">
+                <div class="col-3">
+                    Login:
+                </div>
+                <div class="col-9">
+                    <input type="email" class="form-control" id="title" placeholder="username_123">
+                </div>
+            </div>
+            <div class="row login-field">
+                <div class="col-3">
+                    Password:
+                </div>
+                <div class="col-9">
+                    <input type="password" class="form-control" id="email">
+                </div>
+            </div>
+            <input type="submit" hidden id="submit-login-form">
+        </form>
+        <div class="row login-field">
+            <div class="col-3"></div>
+            <div class="col-9">
+                        <span>
+                            <label for="submit-login-form" class="action-btn">
+                                <button class="btn btn-primary">Login</button>
+                            </label>
+                           <a href="/signup/"> <note class="note">Do not have account?</note></a>
+                        </span>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+
+{% block side_panel %}
+    {% include "inc/sp_hottags_actusers.html" %}
+{% endblock side_panel %}
+

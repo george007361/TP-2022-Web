@@ -1,0 +1,78 @@
+{% extends "inc/base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Settings</title>
+{% endblock title %}
+
+{% block custom_styles %}
+    <link href="{% static "css/settings.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "/css/sp_hottags_actusers.css" %}">
+{% endblock custom_styles %}
+
+{% block content %}
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <h2>Settings:</h2>
+        </div>
+        <div class="col-9">
+            <h2 class="username">Username</h2>
+        </div>
+    </div>
+    <div class="row">
+        <form>
+            <div class="row settings-field">
+                <div class="col-3 d-flex justify-content-end">
+                    Login:
+                </div>
+                <div class="col-9">
+                    <input type="email" class="form-control" id="title" placeholder="username_123">
+                </div>
+            </div>
+            <div class="row settings-field">
+                <div class="col-3 d-flex justify-content-end">
+                    Email:
+                </div>
+                <div class="col-9">
+                    <input type="email" class="form-control" id="email" placeholder="username_123@mail.ru">
+                </div>
+            </div>
+            <div class="row settings-field">
+                <div class="col-3 new-question-field-tags d-flex justify-content-end">
+                    Nickname:
+                </div>
+                <div class="col-9">
+                    <input type="email" class="form-control" id="nickname" placeholder="Username">
+                </div>
+            </div>
+            <div class="row settings-field">
+                <div class="col-3 new-question-field-tags d-flex justify-content-end">
+                    Upload avatar:
+                </div>
+                <div class="col-9">
+                    <div class="col-5">
+                        <div class="row avatar-user-container">
+                            <img src="static/img/user2.jpg" alt="" class="avatar-user-preview">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input type="file" class="form-control" id="uploadAvatar"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row settings-field">
+                <div class="col-3 d-flex justify-content-end"></div>
+                <div class="col-8">
+                    <button type="submit" class="btn btn-primary action-btn">Save!</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+
+
+{% block side_panel %}
+    {% include "inc/sp_hottags_actusers.html" %}
+{% endblock side_panel %}

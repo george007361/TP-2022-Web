@@ -1,0 +1,68 @@
+{% extends "inc/base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Askme George</title>
+{% endblock title %}
+
+{% block custom_styles %}
+    <link rel="stylesheet" href="{% static "/css/sp_hottags_actusers.css" %}">
+    <link rel="stylesheet" href="{% static "/css/question.css" %}">
+    <link rel="stylesheet" href="{% static "/css/index.css" %}">
+    <link href="{% static "css/pages.css" %}" rel="stylesheet">
+{% endblock custom_styles %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-6">
+            <h2>Questions</h2>
+        </div>
+        <div class="col-6">
+            <a href="hot/"><h3 class="a-hot">Hot questions</h3></a>
+        </div>
+    </div>
+
+    {% for question in questions_list %}
+        {% include "inc/question.html" %}
+    {% endfor %}
+
+
+    <div class="row">
+        <div class="d-flex justify-content-center">
+            <div class="pagination">
+        <span class="step-links">
+
+            <span class="pages"><a href="?page=1">1</a> </span>
+
+            {% if questions_list.has_previous %}
+                <span class="pages" id="prev-page"><a
+                        href="?page={{ questions_list.previous_page_number }}"> < </a> </span>
+            {% endif %}
+            {% if not questions_list.has_previous %}
+                <span class="pages disabled"><</span>
+            {% endif %}
+
+            <span class="current">
+                <span class="pages">Page {{ questions_list.number }} of {{ questions_list.paginator.num_pages }}. </span>
+            </span>
+
+            {% if questions_list.has_next %}
+                <span class="pages" id="next-page"><a href="?page={{ questions_list.next_page_number }}"> > </a> </span>
+            {% endif %}
+            {% if not questions_list.has_next %}
+                <span class="pages disabled"> > </span>
+            {% endif %}
+
+            <span class="pages"><a
+                    href="?page={{ questions_list.paginator.num_pages }}">{{ questions_list.paginator.num_pages }}</a> </span>
+
+          </span>
+            </div>
+        </div>
+    </div>
+    {#    {% include "inc/pages.html" %}#}
+{% endblock content %}
+
+{% block side_panel %}
+    {% include "inc/sp_hottags_actusers.html" %}
+{% endblock side_panel %}
