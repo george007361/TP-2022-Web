@@ -153,11 +153,11 @@ a.a-active-user {
     margin-bottom: 10px;
 }
 
-.note{
+.note {
     color: lightgray;
     font-size: 1em;
 }
-.note:hover
-{
+
+.note:hover {
     text-decoration: underline lightgray;
 }
