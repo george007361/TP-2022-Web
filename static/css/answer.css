@@ -1,5 +1,5 @@
-.question{
-    border: solid lightgray  !important;
+.question {
+    border: solid lightgray !important;
 }
 
 .answer {
@@ -14,4 +14,8 @@
     border: solid 2px gray;
     border-radius: 3px;
     margin: 5px 5px 15px 5px;
+}
+
+.answer-correct-checkbox-text {
+    margin: 2px 5px;
 }

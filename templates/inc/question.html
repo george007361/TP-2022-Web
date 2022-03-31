@@ -3,7 +3,7 @@
 <div class="row question">
     <div class="row">
         <div class="col-3">
-            <img src="{% static 'img/question-' %}{{ question.id }}.jpg" alt="" class="avatar-question">
+            <img src="{% static 'img/question-' %}{{ question.img_id }}.jpg" alt="" class="avatar-question">
         </div>
         <div class="col-9">
             <h3><a href="{% url "question" question.id %}" class="a-question">{{ question.title }}</a></h3>

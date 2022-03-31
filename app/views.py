@@ -13,30 +13,26 @@ from django.core.paginator import Paginator
 QUESTIONS = [
     {
         "id": i,
+        "img_id": f"{i % 5 + 1}",
         "title": f"title #{i}",
         "text": f"Text #{i} Text #{i} Text #{i} Text #{i} Text #{i} Text #{i} Text #{i} ",
         "answers_count": f"{2 * i}",
         "like_count": f"{(i * i)}",
-    } for i in range(1, 50)
+    } for i in range(1, 200)
 ]
 
 ANSWERS = [
     {
         "id": i,
+        "img_id": f"{i % 2 + 1}",
         "text": f"Answer #{i} Answer #{i} Answer #{i} Answer #{i} Answer #{i} ",
         "like_count": f"{(i * i)}",
-    } for i in range(1, 5)
+    } for i in range(1, 23)
 ]
 
 
-#
-
-# def home(request):
-#     return HttpResponseRedirect("/?page=1")
-
-
 def index(request):
-    paginator = Paginator(QUESTIONS, 5)
+    paginator = Paginator(QUESTIONS, 20)
     page = request.GET.get('page')
     content = paginator.get_page(page)
     return render(request, "index.html", {'questions_list': content})
@@ -58,7 +54,10 @@ def question(request, i: int):
 
 
 def hot(request):
-    return render(request, "hot.html", {"questions_list": QUESTIONS})
+    paginator = Paginator(QUESTIONS, 5)
+    page = request.GET.get('page')
+    content = paginator.get_page(page)
+    return render(request, "hot.html", {"questions_list": content})
 
 
 def login(request):

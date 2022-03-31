@@ -3,7 +3,7 @@
 <div class="row answer">
     <div class="row">
         <div class="col-3">
-            <img src="{% static "img/user-" %}{{ answer.id }}.jpg" alt="" class="avatar-user">
+            <img src="{% static "img/user-" %}{{ answer.img_id }}.jpg" alt="" class="avatar-user">
         </div>
         <div class="col-9">
             <p>{{ answer.text }}</p>
@@ -15,6 +15,14 @@
             <div class="d-flex justify-content-center">
             <span class="like-counter"><a href=""><img src="{% static "img/like.jpg" %}" alt=""
                                                        class="like-counter-icon"></a>{{ answer.like_count }}</span>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="form-check d-flex justify-content-center">
+                <input class="form-check-input" type="checkbox" value="" id="ansCorrecrCB">
+                <label class="answer-correct-checkbox-text form-check-label" for="ansCorrecrCB">
+                    Answer correct!
+                </label>
             </div>
         </div>
     </div>
