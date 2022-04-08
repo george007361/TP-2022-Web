@@ -26,12 +26,9 @@
                 </div>
                 <div class="col-7">
                     <span>Tags:</span>
-                    <span class="tag"><a href="/tag.html">Cars</a></span>
-                    <span class="tag"><a href="">Help</a></span>
-                    <span class="tag"><a href="">Help</a></span>
-                    <span class="tag"><a href="">Help</a></span>
-                    <span class="tag"><a href="">Help</a></span>
-                    <span class="tag"><a href="">Help</a></span>
+                    {%  for tag in question.tags %}
+                        <span class="tag"><a href="{% url "tag" tag %}">{{ tag }}</a></span>
+                    {% endfor %}
                 </div>
             </div>
         </div>

@@ -18,6 +18,7 @@ QUESTIONS = [
         "text": f"Text #{i} Text #{i} Text #{i} Text #{i} Text #{i} Text #{i} Text #{i} ",
         "answers_count": f"{2 * i}",
         "like_count": f"{(i * i)}",
+        "tags": ["Cars", "Help", "Homework"],
     } for i in range(1, 200)
 ]
 
@@ -58,6 +59,13 @@ def hot(request):
     page = request.GET.get('page')
     content = paginator.get_page(page)
     return render(request, "hot.html", {"questions_list": content})
+
+
+def tag(request, i:str):
+    paginator = Paginator(QUESTIONS, 8)
+    page = request.GET.get('page')
+    content = paginator.get_page(page)
+    return render(request, "tag.html", {"tag": i, "questions_list": content})
 
 
 def login(request):

@@ -2,18 +2,19 @@
 {% load static %}
 
 {% block title %}
-    <title>Askme George : hot</title>
+    <title>Tag: {{ tag }}</title>
 {% endblock title %}
 
 {% block custom_styles %}
     <link rel="stylesheet" href="{% static "/css/sp_hottags_actusers.css" %}">
     <link rel="stylesheet" href="{% static "/css/question.css" %}">
+    <link rel="stylesheet" href="{% static "/css/pages.css" %}">
 {% endblock custom_styles %}
 
 {% block content %}
     <div class="row">
         <div class="col-6">
-            <h2>Hot questions</h2>
+            <h2>Tag: {{ tag }}</h2>
         </div>
     </div>
 
