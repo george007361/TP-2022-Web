@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    <title>Question {{ question.title }}</title>
+    <title>Question: {{ question.title }}</title>
 {% endblock title %}
 
 {% block custom_styles %}
@@ -26,7 +26,6 @@
         {% include "inc/answer.html" %}
     {% endfor %}
 
-    {#    {% include "inc/pages.html" %}#}
     <div class="row">
         <div class="d-flex justify-content-center">
             <div class="pagination">

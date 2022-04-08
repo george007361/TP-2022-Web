@@ -21,7 +21,7 @@
         <div class="col-8">
             <div class="row">
                 <div class="col-5 d-flex justify-content-center">
-                    <span class="answers text-nowrap"><a href="/question/{{ question.id }}">See answers: <ans
+                    <span class="answers text-nowrap"><a href="{% url "question" question.id %}">See answers: <ans
                             class="answers-counter">{{ question.answers_count }}</ans></a></span>
                 </div>
                 <div class="col-7">

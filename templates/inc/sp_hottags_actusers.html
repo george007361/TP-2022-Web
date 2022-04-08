@@ -3,16 +3,15 @@
     <h2>Hot tags:</h2>
     <div class="hot-tags">
                     <span>
-                        <span class="hot-1"><a href="./tag.html" class="tag">Cars</a></span>
-                        <span class="hot-2"><a href="" class="tag">Women</a></span>
-                        <span class="hot-3"><a href="" class="tag">Habr</a></span>
-                        <span class="hot-1"><a href="" class="tag">Vk</a></span>
+                        {% for hot in hot_tags %}
+                            <span class="hot-{{ hot.level }}"><a href="{% url "tag" hot.name %}" class="tag">{{ hot.name }}</a></span>
+                        {% endfor %}
                     </span>
     </div>
 </div>
 <div class="row">
     <h2>Active users:</h2>
-    <a href="" class="a-active-user">George</a>
-    <a href="" class="a-active-user">Lev</a>
-    <a href="" class="a-active-user">Andry</a>
+    {% for user in active_users %}
+        <a href="" class="a-active-user">{{ user.name }}</a>
+    {% endfor %}
 </div>
