@@ -18,6 +18,7 @@ QUESTIONS = [
         "text": f"Text #{i} Text #{i} Text #{i} Text #{i} Text #{i} Text #{i} Text #{i} ",
         "answers_count": f"{2 * i}",
         "like_count": f"{(i * i)}",
+        "dislike_count": f"{int((i * i) / 2)}",
         "tags": ["Cars", "Help", "Homework"],
     } for i in range(1, 200)
 ]

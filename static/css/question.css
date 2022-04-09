@@ -20,23 +20,31 @@
     margin: 5px 5px 15px 5px;
 }
 
-.like-counter-icon {
-    height: 30px;
-    margin-right: 8px;
+.rating-counter-icon {
+    height: 20px;
+    margin-right: 5px;
 }
 
-.like-counter-icon:hover {
+.rating-counter-icon:hover {
     -webkit-box-shadow: 11px 11px 23px 0px rgba(34, 60, 80, 0.2);
     -moz-box-shadow: 11px 11px 23px 0px rgba(34, 60, 80, 0.2);
     box-shadow: 11px 11px 23px 0px rgba(34, 60, 80, 0.2);
 }
 
-.like-counter {
+.rating-counter {
     display: inline-block;
     color: #a2a1a1;
     border: solid lightgray;
     border-radius: 8px;
-    padding: 10px 20px;
+    padding: 8px;
+}
+
+.likes {
+    color: green;
+}
+
+.dislikes {
+    color: red;
 }
 
 .tag {
