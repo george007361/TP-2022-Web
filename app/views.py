@@ -28,7 +28,8 @@ ANSWERS = [
         "id": i,
         "img_id": f"{i % 2 + 1}",
         "text": f"Answer #{i} Answer #{i} Answer #{i} Answer #{i} Answer #{i} ",
-        "like_count": f"{(i * i)}",
+        "like_count": f"{int((i * i) / 3)}",
+        "dislike_count": f"{int((i * i) / 4)}",
     } for i in range(1, 23)
 ]
 

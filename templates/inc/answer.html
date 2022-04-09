@@ -2,19 +2,21 @@
 
 <div class="row answer">
     <div class="row">
-        <div class="col-3">
+        <div class="col-4">
             <img src="{% static "img/user-" %}{{ answer.img_id }}.jpg" alt="" class="avatar-user">
         </div>
-        <div class="col-9">
+        <div class="col-8">
             <p>{{ answer.text }}</p>
         </div>
     </div>
     <div class="row">
         <hr>
-        <div class="col-3">
+        <div class="col-4">
             <div class="d-flex justify-content-center">
-            <span class="like-counter"><a href=""><img src="{% static "img/like.jpg" %}" alt=""
-                                                       class="like-counter-icon"></a>{{ answer.like_count }}</span>
+                <span class="rating-counter likes"><a href=""><img src="{% static "img/like.jpg" %}" alt=""
+                                                           class="rating-counter-icon"></a>{{ answer.like_count }}</span>
+                <span class="rating-counter dislikes"><a href=""><img src="{% static "img/dislike.jpg" %}" alt=""
+                                                           class="rating-counter-icon"></a>{{ answer.dislike_count }}</span>
             </div>
         </div>
         <div class="col-8">

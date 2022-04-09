@@ -1,0 +1,27 @@
+.rating-counter-icon {
+    height: 20px;
+    margin-right: 5px;
+}
+
+.rating-counter-icon:hover {
+    -webkit-box-shadow: 11px 11px 23px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 11px 11px 23px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 11px 11px 23px 0px rgba(34, 60, 80, 0.2);
+}
+
+.rating-counter {
+    display: inline-block;
+    color: #a2a1a1;
+    border: solid lightgray;
+    border-radius: 8px;
+    padding: 4px 8px;
+    margin: 0px 2px;
+}
+
+.likes {
+    color: green;
+}
+
+.dislikes {
+    color: red;
+}
