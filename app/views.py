@@ -1,85 +1,18 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
-# Create your views here.
-# questions = []
-# for i in range(1, 10):
-#     questions.append( {
-#         "title": f"title #{i}",
-#         "text": f"Text #{i} Text #{i} Text #{i} Text #{i} Text #{i} Text #{i} Text #{i} ",
-#         # "img": f"/img/question-{i % 5}.jpg",
-#     })
+from django.views import generic
+from .models import Question, Answer, Tag, Rating, Profile
 
-QUESTIONS = [
-    {
-        "id": i,
-        "img_id": f"{i % 5 + 1}",
-        "title": f"title #{i}",
-        "text": f"Text #{i} Text #{i} Text #{i} Text #{i} Text #{i} Text #{i} Text #{i} ",
-        "answers_count": f"{2 * i}",
-        "like_count": f"{(i * i)}",
-        "dislike_count": f"{int((i * i) / 2)}",
-        "tags": ["Cars", "Help", "Homework"],
-    } for i in range(1, 200)
-]
-
-ANSWERS = [
-    {
-        "id": i,
-        "img_id": f"{i % 2 + 1}",
-        "text": f"Answer #{i} Answer #{i} Answer #{i} Answer #{i} Answer #{i} ",
-        "like_count": f"{int((i * i) / 3)}",
-        "dislike_count": f"{int((i * i) / 4)}",
-    } for i in range(1, 23)
-]
-
-ACTIVE = [
-    {
-     "name": "George",
-    },
-    {
-        "name": "Andry",
-    },
-    {
-        "name": "John",
-    },
-]
-
-HOTTAGS = [
-    {
-        "name": "Summer",
-        "level": 1,
-    },
-    {
-        "name": "Winter",
-        "level": 3,
-    },
-    {
-        "name": "Computer",
-        "level": 3,
-    },
-
-    {
-        "name": "Cars",
-        "level": 2,
-    },
-
-    {
-        "name": "Session",
-        "level": 1,
-    },
-
-    {
-        "name": "VK",
-        "level": 2,
-    },
-]
 
 def index(request):
-    paginator = Paginator(QUESTIONS, 20)
+    paginator = Paginator(Question.objects.all(), 20)
     page = request.GET.get('page')
-    content = paginator.get_page(page)
-    return render(request, "index.html", {'active_users': ACTIVE, 'hot_tags': HOTTAGS, 'questions_list': content})
+    content = {
+        'questions': paginator.get_page(page),
+        "active_users": Profile.objects.active_users,
+        "popular_tags" : Tag.objects.popular_tags,
+    }
+    return render(request, "index.html", {"content": content})
 
 
 def ask(request):
@@ -91,24 +24,46 @@ def settings(request):
 
 
 def question(request, i: int):
-    paginator = Paginator(ANSWERS, 5)
+    paginator = Paginator(Answer.objects.filter(question_id=i), 5)
     page = request.GET.get('page')
-    content = paginator.get_page(page)
-    return render(request, "question_page.html", {"question": QUESTIONS[i - 1], "answers_list":content, "active_users": ACTIVE, 'hot_tags': HOTTAGS})
+    content = {
+        "question": Question.objects.get(id=i),
+        "answers": paginator.get_page(page),
+        "active_users": Profile.objects.active_users,
+        "popular_tags" : Tag.objects.popular_tags,
+    }
+    return render(request, "question_page.html", {"content": content})
 
 
-def hot(request):
-    paginator = Paginator(QUESTIONS, 5)
+def latest(request):
+    content = {
+        'questions': Question.objects.latest_questions,
+        "active_users": Profile.objects.active_users,
+        "popular_tags" : Tag.objects.popular_tags,
+    }
+    return render(request, "latest.html", {"content": content})
+
+
+def top(request):
+    content = {
+        'questions': Question.objects.top_questions,
+        "active_users": Profile.objects.active_users,
+        "popular_tags" : Tag.objects.popular_tags,
+    }
+    return render(request, "top.html", {"content": content})
+
+
+def tag(request, i: str):
+    paginator = Paginator(Question.objects.filter(tags__name=i), 8)
     page = request.GET.get('page')
-    content = paginator.get_page(page)
-    return render(request, "hot.html", {"questions_list": content, "active_users": ACTIVE, 'hot_tags': HOTTAGS})
-
-
-def tag(request, i:str):
-    paginator = Paginator(QUESTIONS, 8)
-    page = request.GET.get('page')
-    content = paginator.get_page(page)
-    return render(request, "tag.html", {"tag": i, "questions_list": content, "active_users": ACTIVE, 'hot_tags': HOTTAGS})
+    content = {
+        'tag': i,
+        'questions': paginator.get_page(page),
+        "active_users": Profile.objects.active_users,
+        "popular_tags" : Tag.objects.popular_tags,
+    }
+    return render(request, "tag.html",
+                  {"content": content})
 
 
 def login(request):

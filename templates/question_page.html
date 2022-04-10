@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    <title>Question: {{ question.title }}</title>
+    <title>Question: {{ content.question.title }}</title>
 {% endblock title %}
 
 {% block custom_styles %}
@@ -16,14 +16,15 @@
 
 {% block content %}
 
-    {% include "inc/question.html" %}
-
+    {% with question=content.question %}
+        {% include "inc/question.html" %}
+    {% endwith %}
     <br>
     <hr>
     <br>
     <h2>Answers:</h2>
 
-    {% for answer in answers_list %}
+    {% for answer in content.answers %}
         {% include "inc/answer.html" %}
     {% endfor %}
 
@@ -78,7 +79,6 @@
 {% endblock content %}
 
 
-{% block side_panel %}
-    {% include "inc/sp_hottags_actusers.html" %}
-{% endblock side_panel %}
+{#{% block side_panel %}#}
+{#{% endblock side_panel %}#}
 

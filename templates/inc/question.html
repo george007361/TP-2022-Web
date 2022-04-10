@@ -3,7 +3,7 @@
 <div class="row question">
     <div class="row">
         <div class="col-4">
-            <img src="{% static 'img/question-' %}{{ question.img_id }}.jpg" alt="" class="avatar-question">
+            <img src="{{ MEDIA_URL }}{{ question.image.url }}" alt="" class="avatar-question">
         </div>
         <div class="col-8">
             <h3><a href="{% url "question" question.id %}" class="a-question">{{ question.title }}</a></h3>
@@ -15,9 +15,9 @@
         <div class="col-4 d-flex justify-content-center">
             <div>
             <span class="rating-counter likes"><a href=""><img src="{% static "img/like.jpg" %}" alt=""
-                                                       class="rating-counter-icon"></a>{{ question.like_count }}</span>
+                                                               class="rating-counter-icon"></a>{{ question.rating.likes }}</span>
                 <span class="rating-counter dislikes"><a href=""><img src="{% static "img/dislike.jpg" %}" alt=""
-                                                           class="rating-counter-icon"></a>{{ question.dislike_count }}</span>
+                                                                      class="rating-counter-icon"></a>{{ question.rating.dislikes }}</span>
             </div>
         </div>
         <div class="col-8">
@@ -28,8 +28,8 @@
                 </div>
                 <div class="col-7">
                     <span>Tags:</span>
-                    {% for tag in question.tags %}
-                        <span class="tag"><a href="{% url "tag" tag %}">{{ tag }}</a></span>
+                    {% for tag in question.tags.all %}
+                        <span class="tag"><a href="{% url "tag" tag.name %}">{{ tag.name }}</a></span>
                     {% endfor %}
                 </div>
             </div>

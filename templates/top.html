@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    <title>Askme George : hot</title>
+    <title>Askme George : top questions</title>
 {% endblock title %}
 
 {% block custom_styles %}
@@ -14,18 +14,17 @@
 {% block content %}
     <div class="row">
         <div class="col-6">
-            <h2>Hot questions</h2>
+            <h2>Top questions</h2>
         </div>
     </div>
 
-    {% for question in questions_list %}
+    {% for question in content.questions %}
         {% include "inc/question.html" %}
     {% endfor %}
 
-    {% include "inc/paginator_questions.html" %}
+{#    {% include "inc/paginator_questions.html" %}#}
 
 {% endblock content %}
 
-{% block side_panel %}
-    {% include "inc/sp_hottags_actusers.html" %}
-{% endblock side_panel %}
+{#{% block side_panel %}#}
+{#{% endblock side_panel %}#}
