@@ -6,7 +6,7 @@
 {% endblock title %}
 
 {% block custom_styles %}
-{#    <link rel="stylesheet" href="{% static "/css/sp_hottags_actusers.css" %}">#}
+    {#    <link rel="stylesheet" href="{% static "/css/sp_hottags_actusers.css" %}">#}
     <link rel="stylesheet" href="{% static "/css/question.css" %}">
     <link rel="stylesheet" href="{% static "/css/rating_counter.css" %}">
     <link rel="stylesheet" href="{% static "/css/index.css" %}">
@@ -28,8 +28,9 @@
         {% include "inc/question.html" %}
     {% endfor %}
 
-    {% include "inc/paginator_questions.html" %}
-
+    {% with content=content.questions %}
+        {% include "inc/paginator.html" %}
+    {% endwith %}
 {% endblock content %}
 
 {#{% block side_panel %}#}

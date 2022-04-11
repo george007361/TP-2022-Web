@@ -24,8 +24,10 @@ SECRET_KEY = 'django-insecure-ni3au=j-bql=)v*urmh@!d$6$7tqfm$=1qr0a66czb9mck#@3o
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []
+#
+# DEBUG = False
+# ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
@@ -120,7 +122,6 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    # '/var/www/static/',
 ]
 
 # Default primary key field type
@@ -128,6 +129,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#Media files
 
 MEDIA_URL = 'uploads/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')

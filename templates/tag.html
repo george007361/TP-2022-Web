@@ -23,7 +23,9 @@
         {% include "inc/question.html" %}
     {% endfor %}
 
-    {% include "inc/paginator_questions.html" %}
+    {% with content=content.questions %}
+        {% include "inc/paginator.html" %}
+    {% endwith %}
 
 {% endblock content %}
 

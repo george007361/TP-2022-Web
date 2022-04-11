@@ -28,39 +28,10 @@
         {% include "inc/answer.html" %}
     {% endfor %}
 
-    <div class="row">
-        <div class="d-flex justify-content-center">
-            <div class="pagination">
-        <span class="step-links">
+    {% with content=content.answers %}
+        {% include "inc/paginator.html" %}
+    {% endwith %}
 
-            <span class="pages"><a href="?page=1">1</a> </span>
-
-            {% if answers_list.has_previous %}
-                <span class="pages" id="prev-page"><a
-                        href="?page={{ answers_list.previous_page_number }}"> < </a> </span>
-            {% endif %}
-            {% if not answers_list.has_previous %}
-                <span class="pages disabled"><</span>
-            {% endif %}
-
-            <span class="current">
-                <span class="pages">Page {{ answers_list.number }} of {{ answers_list.paginator.num_pages }}. </span>
-            </span>
-
-            {% if answers_list.has_next %}
-                <span class="pages" id="next-page"><a href="?page={{ answers_list.next_page_number }}"> > </a> </span>
-            {% endif %}
-            {% if not answers_list.has_next %}
-                <span class="pages disabled"> > </span>
-            {% endif %}
-
-            <span class="pages"><a
-                    href="?page={{ answers_list.paginator.num_pages }}">{{ answers_list.paginator.num_pages }}</a> </span>
-
-          </span>
-            </div>
-        </div>
-    </div>
     <div class="row answer your-answer">
         <form action="">
             <div class="row">

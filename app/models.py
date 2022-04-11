@@ -1,6 +1,6 @@
+import django.contrib.auth.models
+import uuid
 from django.db import models
-
-# Create your models here.
 from django.db.models import Count
 
 
@@ -24,30 +24,34 @@ class TagManager(models.Manager):
 
 
 def question_directory_path(instance, filename):
-    return 'question_image/{0}/{1}'.format(instance.id, filename)
+    return 'question_image/{0}/{1}'.format(str(instance.u_id), filename)
 
 
 def user_avatar_directory_path(instance, filename):
-    return 'avatars/{0}'.format(instance.id)
+    return 'user_avatars/{0}/{1}'.format(str(instance.u_id), filename)
 
 
 class Answer(models.Model):
-    text = models.TextField()
-    isCorrect = models.BooleanField(default=0)
     question = models.ForeignKey('Question', on_delete=models.CASCADE, related_name='answer')
     author = models.ForeignKey('Profile', on_delete=models.PROTECT, related_name='answer')
+    text = models.TextField()
     rating = models.OneToOneField('Rating', on_delete=models.CASCADE, related_name='answer')
+    isCorrect = models.BooleanField(default=False)
 
     def __str__(self):
         return ' '.join([str(self.id), self.text[:10]])
 
 
 class Question(models.Model):
+    id = models.AutoField(primary_key=True, editable=False)
+    u_id = models.UUIDField(default=uuid.uuid4, editable=False)
+
     title = models.CharField(max_length=256)
     text = models.TextField()
     image = models.ImageField(upload_to=question_directory_path)
     rating = models.OneToOneField('Rating', on_delete=models.CASCADE, related_name='question')
     tags = models.ManyToManyField('Tag', related_name='tags')
+
     objects = QuestionManager()
 
     def __str__(self):
@@ -56,6 +60,7 @@ class Question(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=256)
+
     objects = TagManager()
 
     def __str__(self):
@@ -63,11 +68,12 @@ class Tag(models.Model):
 
 
 class Profile(models.Model):
+    id = models.AutoField(primary_key=True, editable=False)
+    u_id = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    user = models.OneToOneField(django.contrib.auth.models.User, on_delete=models.CASCADE, related_name='profile')
     nickname = models.CharField(max_length=256)
     avatar = models.ImageField(upload_to=user_avatar_directory_path)
-
-    # login
-    # email
 
     objects = UsersManager()
 

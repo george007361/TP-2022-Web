@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from app import views
-
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -32,6 +31,8 @@ urlpatterns = [
     path('signup/', views.signup, name="signup"),
     path('settings/', views.settings, name="settings"),
 ]
+
+handler404 = "app.views.page_not_found_view"
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

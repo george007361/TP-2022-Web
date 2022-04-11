@@ -1,0 +1,21 @@
+{% extends "inc/base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Page Not Found</title>
+{% endblock title %}
+
+{% block custom_styles %}
+    <link rel="stylesheet" href="{% static "/css/sp_hottags_actusers.css" %}">
+    <link rel="stylesheet" href="{% static "/css/404.css" %}">
+{% endblock custom_styles %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <img src="{% static "/img/404.jpg" %}" alt="">
+        </div>
+    </div>
+
+
+{% endblock content %}

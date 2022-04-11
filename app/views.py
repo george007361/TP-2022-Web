@@ -1,7 +1,14 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
-from django.views import generic
-from .models import Question, Answer, Tag, Rating, Profile
+from .models import *
+
+
+def page_not_found_view(request, exception):
+    content = {
+        "active_users": Profile.objects.active_users,
+        "popular_tags": Tag.objects.popular_tags,
+    }
+    return render(request, "404page.html", {"content": content}, status=404)
 
 
 def index(request):
@@ -10,17 +17,9 @@ def index(request):
     content = {
         'questions': paginator.get_page(page),
         "active_users": Profile.objects.active_users,
-        "popular_tags" : Tag.objects.popular_tags,
+        "popular_tags": Tag.objects.popular_tags,
     }
     return render(request, "index.html", {"content": content})
-
-
-def ask(request):
-    return render(request, "ask.html", {"active_users": ACTIVE, 'hot_tags': HOTTAGS})
-
-
-def settings(request):
-    return render(request, "settings.html", {"active_users": ACTIVE, 'hot_tags': HOTTAGS})
 
 
 def question(request, i: int):
@@ -30,7 +29,7 @@ def question(request, i: int):
         "question": Question.objects.get(id=i),
         "answers": paginator.get_page(page),
         "active_users": Profile.objects.active_users,
-        "popular_tags" : Tag.objects.popular_tags,
+        "popular_tags": Tag.objects.popular_tags,
     }
     return render(request, "question_page.html", {"content": content})
 
@@ -39,7 +38,7 @@ def latest(request):
     content = {
         'questions': Question.objects.latest_questions,
         "active_users": Profile.objects.active_users,
-        "popular_tags" : Tag.objects.popular_tags,
+        "popular_tags": Tag.objects.popular_tags,
     }
     return render(request, "latest.html", {"content": content})
 
@@ -48,7 +47,7 @@ def top(request):
     content = {
         'questions': Question.objects.top_questions,
         "active_users": Profile.objects.active_users,
-        "popular_tags" : Tag.objects.popular_tags,
+        "popular_tags": Tag.objects.popular_tags,
     }
     return render(request, "top.html", {"content": content})
 
@@ -60,10 +59,18 @@ def tag(request, i: str):
         'tag': i,
         'questions': paginator.get_page(page),
         "active_users": Profile.objects.active_users,
-        "popular_tags" : Tag.objects.popular_tags,
+        "popular_tags": Tag.objects.popular_tags,
     }
     return render(request, "tag.html",
                   {"content": content})
+
+
+def ask(request):
+    return render(request, "ask.html", {"active_users": ACTIVE, 'hot_tags': HOTTAGS})
+
+
+def settings(request):
+    return render(request, "settings.html", {"active_users": ACTIVE, 'hot_tags': HOTTAGS})
 
 
 def login(request):
