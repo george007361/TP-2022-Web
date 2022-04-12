@@ -3,6 +3,9 @@ import uuid
 from django.db import models
 from django.db.models import Count
 
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.models import ContentType
+
 
 # Managers
 class QuestionManager(models.Manager):
@@ -24,7 +27,26 @@ class TagManager(models.Manager):
         return self.all().annotate(popular=Count('tags')).order_by('-popular')[:5]
 
 
+# class LikeManager(models.Manager):
+#     def add_like(self):
+#         """Лайкает `obj`.
+#         """
+#         obj_type = ContentType.objects.get_for_model(obj)
+#         like, is_created = Like.objects.get_or_create(
+#             content_type=obj_type, object_id=obj.id, user=user)
+#         return like
+#
+#     def remove_like(obj, user):
+#         """Удаляет лайк с `obj`.
+#         """
+#         obj_type = ContentType.objects.get_for_model(obj)
+#         Like.objects.filter(
+#             content_type=obj_type, object_id=obj.id, user=user
+#         ).delete()
+
+
 # paths
+
 def question_directory_path(instance, filename):
     return 'question_image/{0}/{1}'.format(str(instance.u_id), filename)
 
@@ -49,8 +71,9 @@ class Answer(models.Model):
     text = models.TextField()
 
     isCorrect = models.BooleanField(default=False)
-    likes = models.PositiveIntegerField(default=0)
-    dislikes = models.PositiveIntegerField(default=0)
+
+    likes = GenericRelation('Like')
+    dislikes = GenericRelation('Dislike')
 
     def __str__(self):
         return ' '.join([str(self.id), self.text[:10]])
@@ -67,8 +90,8 @@ class Question(models.Model):
     image = models.ImageField(upload_to=question_directory_path, default=default_question_image_path)
     tags = models.ManyToManyField('Tag', related_name='tags')
 
-    likes = models.PositiveIntegerField(default=0)
-    dislikes = models.PositiveIntegerField(default=0)
+    likes = GenericRelation('Like')
+    dislikes = GenericRelation('Dislike')
 
     objects = QuestionManager()
 
@@ -97,3 +120,25 @@ class Profile(models.Model):
 
     def __str__(self):
         return ' '.join([str(self.id), self.nickname])
+
+
+class Like(models.Model):
+    counter = models.PositiveIntegerField(default=0)
+    users = models.ForeignKey('Profile', related_name='likes', on_delete=models.PROTECT)
+    content_type = models.OneToOneField(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveBigIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    def __str__(self):
+        return ' '.join(str(self.question.id), str(self.counter))
+
+
+class Dislike(models.Model):
+    counter = models.PositiveIntegerField(default=0)
+    users = models.ForeignKey('Profile', related_name='dislikes', on_delete=models.PROTECT)
+    content_type = models.OneToOneField(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveBigIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    def __str__(self):
+        return ' '.join(str(self.question.id), str(self.counter))

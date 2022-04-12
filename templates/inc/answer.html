@@ -14,9 +14,9 @@
         <div class="col-4">
             <div class="d-flex justify-content-center">
                 <span class="rating-counter likes"><a href=""><img src="{% static "img/like.jpg" %}" alt=""
-                                                           class="rating-counter-icon"></a>{{ answer.likes }}</span>
+                                                           class="rating-counter-icon"></a>{{ answer.likes.count }}</span>
                 <span class="rating-counter dislikes"><a href=""><img src="{% static "img/dislike.jpg" %}" alt=""
-                                                           class="rating-counter-icon"></a>{{ answer.dislikes }}</span>
+                                                           class="rating-counter-icon"></a>{{ answer.dislikes.count }}</span>
             </div>
         </div>
         <div class="col-8">

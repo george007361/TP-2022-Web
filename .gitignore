@@ -132,5 +132,9 @@ btstr
 venv
 *.pyc
 .idea/
+
 uploads/question_image/*
 uploads/user_avatars/*
+
+!uploads/question_image/default
+!uploads/user_avatars/default
