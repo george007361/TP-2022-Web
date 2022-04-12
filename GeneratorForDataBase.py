@@ -65,10 +65,10 @@ def create_answers(params):
 
 
 PARAMS = {
-    "PROFILES": 10,
-    "QUESTIONS": 500,
-    "TAGS": 100,
-    "ANSWERS": 1500,
+    "PROFILES": 10000,
+    "QUESTIONS": 100000,
+    "TAGS": 10000,
+    "ANSWERS": 1000000,
 }
 
 create_profiles(PARAMS)
