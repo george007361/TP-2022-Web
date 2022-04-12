@@ -2,11 +2,12 @@
 <div class="row">
     <h2>Hot tags:</h2>
     <div class="hot-tags">
-                    <span>
-                        {% for hot in hot_tags %}
-                            <span class="hot-{{ hot.level }}"><a href="{% url "tag" hot.name %}" class="tag">{{ hot.name }}</a></span>
-                        {% endfor %}
-                    </span>
+        <span>
+        {% for hot in hot_tags %}
+            <span class="hot-{{ forloop.counter }}"><a href="{% url "tag" hot.name %}"
+                                                       class="tag">{{ hot.name }}</a></span>
+        {% endfor %}
+        </span>
     </div>
 </div>
 <div class="row">

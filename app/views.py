@@ -66,16 +66,32 @@ def tag(request, i: str):
 
 
 def ask(request):
-    return render(request, "ask.html", {"active_users": ACTIVE, 'hot_tags': HOTTAGS})
+    content = {
+        "active_users": Profile.objects.active_users,
+        "popular_tags": Tag.objects.popular_tags,
+    }
+    return render(request, "ask.html", {"content": content})
 
 
 def settings(request):
-    return render(request, "settings.html", {"active_users": ACTIVE, 'hot_tags': HOTTAGS})
+    content = {
+        "active_users": Profile.objects.active_users,
+        "popular_tags": Tag.objects.popular_tags,
+    }
+    return render(request, "settings.html", {"content": content})
 
 
 def login(request):
-    return render(request, "login.html", {"active_users": ACTIVE, 'hot_tags': HOTTAGS})
+    content = {
+        "active_users": Profile.objects.active_users,
+        "popular_tags": Tag.objects.popular_tags,
+    }
+    return render(request, "login.html", {"content": content})
 
 
 def signup(request):
-    return render(request, "register.html", {"active_users": ACTIVE, 'hot_tags': HOTTAGS})
+    content = {
+        "active_users": Profile.objects.active_users,
+        "popular_tags": Tag.objects.popular_tags,
+    }
+    return render(request, "register.html", {"content": content})

@@ -1,6 +1,6 @@
 
 .pages {
-    color: gray;
+    color: #525151;
     border: solid lightgray;
     text-align: center;
     border-radius: 8px;
@@ -11,5 +11,5 @@
 }
 
 .disabled {
-    color: #505050;
+    color: lightgray;
 }
