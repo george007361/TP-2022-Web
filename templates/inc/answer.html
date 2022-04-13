@@ -14,14 +14,18 @@
         <div class="col-4">
             <div class="d-flex justify-content-center">
                 <span class="rating-counter likes"><a href=""><img src="{% static "img/like.jpg" %}" alt=""
-                                                           class="rating-counter-icon"></a>{{ answer.likes.count }}</span>
+                                                                   class="rating-counter-icon"></a>{{ answer.likes.count }}</span>
                 <span class="rating-counter dislikes"><a href=""><img src="{% static "img/dislike.jpg" %}" alt=""
-                                                           class="rating-counter-icon"></a>{{ answer.dislikes.count }}</span>
+                                                                      class="rating-counter-icon"></a>{{ answer.dislikes.count }}</span>
             </div>
         </div>
         <div class="col-8">
             <div class="form-check d-flex justify-content-center">
-                <input class="form-check-input" type="checkbox" value="" id="ansCorrecrCB">
+                {% if answer.isCorrect %}
+                    <input class="form-check-input" type="checkbox" value="" id="ansCorrecrCB" checked>
+                {% else %}
+                    <input class="form-check-input" type="checkbox" value="" id="ansCorrecrCB">
+                {% endif %}
                 <label class="answer-correct-checkbox-text form-check-label" for="ansCorrecrCB">
                     Answer correct!
                 </label>
