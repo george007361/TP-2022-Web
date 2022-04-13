@@ -78,7 +78,8 @@ WSGI_APPLICATION = 'askmeGeorge.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'askmeGeorge',
+        'NAME': 'askmeMini',
+        # 'NAME': 'askmeGeorge',
         'USER': 'su',
         'PASSWORD': '123',
         'HOST': 'localhost',

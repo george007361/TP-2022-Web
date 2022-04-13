@@ -3,7 +3,7 @@
 <div class="row question">
     <div class="row">
         <div class="col-4">
-            <img src="{{ MEDIA_URL }}{{ question.image.url }}" alt="" class="avatar-question">
+            <img src="{{ MEDIA_URL }}{{ question.author.avatar.url }}" alt="" class="avatar-question">
         </div>
         <div class="col-8">
             <h3><a href="{% url "question" question.id %}" class="a-question">{{ question.title }}</a></h3>

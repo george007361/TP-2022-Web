@@ -87,7 +87,7 @@ class Question(models.Model):
 
     title = models.CharField(max_length=256)
     text = models.TextField()
-    image = models.ImageField(upload_to=question_directory_path, default=default_question_image_path)
+    # image = models.ImageField(upload_to=question_directory_path, default=default_question_image_path)
     tags = models.ManyToManyField('Tag', related_name='tags')
 
     likes = GenericRelation('Like')
@@ -130,7 +130,7 @@ class Like(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
 
     def __str__(self):
-        return ' '.join(str(self.question.id), str(self.counter))
+        return ' '.join(str(self.object_id), str(self.counter))
 
 
 class Dislike(models.Model):
@@ -141,4 +141,4 @@ class Dislike(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
 
     def __str__(self):
-        return ' '.join(str(self.question.id), str(self.counter))
+        return ' '.join(str(self.object_id), str(self.counter))
