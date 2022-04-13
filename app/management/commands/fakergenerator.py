@@ -74,14 +74,16 @@ class Command(BaseCommand):
         Answer.objects.bulk_create(answers)
 
         print('Setting tags to questions...')
-        questions = Question.objects.all()
-        tags = Tag.objects.all()
-        for i in range(len(questions)):
+        questions_count = Question.objects.all().count()
+        for i in range(1, questions_count + 1):
             new_tags = []
-            for j in range(random.randrange(1, 4)):
-                new_tags.append(random.choice(tags))
-            questions[i].tags.set(new_tags)
-        Question.objects.bulk_create(questions)
+            new_tags_count = Tag.objects.all().count()
+            pos = random.randrange(1, new_tags_count - 5)
+            for j in range(0, random.randrange(1, 5)):
+                new_tags.append(Tag.objects.get(id=pos + j))
+            question = Question.objects.get(id=i)
+            question.tags.set(new_tags)
+            question.save()
 
     def add_arguments(self, parser):
         parser.add_argument(
