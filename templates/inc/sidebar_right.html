@@ -13,6 +13,6 @@
 <div class="row">
     <h2>Active users:</h2>
     {% for user in active_users %}
-        <a href="" class="a-active-user">{{ user.nickname }}</a>
+        <a href="{% url "profile" user.username %}" class="a-active-user">{{ user.username }}</a>
     {% endfor %}
 </div>

@@ -1,13 +1,14 @@
 {% extends "inc/base.html" %}
 {% load static %}
+{% load bootstrap4 %}
 
 {% block title %}
-    <title>Settings</title>
+    <title>Settings: {{ content.this_user.username }}</title>
 {% endblock title %}
 
 {% block custom_styles %}
-    <link href="{% static "css/settings.css" %}" rel="stylesheet">
-    <link rel="stylesheet" href="{% static "/css/sp_hottags_actusers.css" %}">
+    <link href="{% static "css/profile.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "/css/sidebar_right.css" %}">
 {% endblock custom_styles %}
 
 {% block content %}
@@ -17,56 +18,31 @@
             <h2>Settings:</h2>
         </div>
         <div class="col-9">
-            <h2 class="username">Username</h2>
+            <h2 class="username">{{ content.this_user.username }}</h2>
         </div>
     </div>
     <div class="row">
-        <form>
-            <div class="row settings-field">
-                <div class="col-3 d-flex justify-content-end">
-                    Login:
-                </div>
-                <div class="col-9">
-                    <input type="email" class="form-control" id="title" placeholder="username_123">
-                </div>
+        <form action="{% url "settings" %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form content.settings_form %}
+            <div class="row justify-content-center">
+                <img src="{{ MEDIA_URL }}{{ content.this_user.avatar.url }}" alt=""
+                     class="avatar-user-preview justify-content-center"
+                     id="avatar-preview">
+                <script>
+                    var loadFile = function (event) {
+                        var output = document.getElementById('avatar-preview');
+                        output.src = URL.createObjectURL(event.target.files[0]);
+                        output.onload = function () {
+                            URL.revokeObjectURL(output.src) // free memory
+                        }
+                    };
+                </script>
             </div>
-            <div class="row settings-field">
-                <div class="col-3 d-flex justify-content-end">
-                    Email:
-                </div>
-                <div class="col-9">
-                    <input type="email" class="form-control" id="email" placeholder="username_123@mail.ru">
-                </div>
-            </div>
-            <div class="row settings-field">
-                <div class="col-3 new-question-field-tags d-flex justify-content-end">
-                    Nickname:
-                </div>
-                <div class="col-9">
-                    <input type="email" class="form-control" id="nickname" placeholder="Username">
-                </div>
-            </div>
-            <div class="row settings-field">
-                <div class="col-3 new-question-field-tags d-flex justify-content-end">
-                    Upload avatar:
-                </div>
-                <div class="col-9">
-                    <div class="col-5">
-                        <div class="row avatar-user-container">
-                            <img src="static/img/user2.jpg" alt="" class="avatar-user-preview">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <input type="file" class="form-control" id="uploadAvatar"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row settings-field">
-                <div class="col-3 d-flex justify-content-end"></div>
-                <div class="col-8">
+            <div class="row settings-field d-flex justify-content-center">
+                <div class="col-6 d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary action-btn">Save!</button>
                 </div>
-
             </div>
         </form>
     </div>

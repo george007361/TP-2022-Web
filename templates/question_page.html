@@ -1,5 +1,6 @@
 {% extends "inc/base.html" %}
 {% load static %}
+{% load bootstrap4 %}
 
 {% block title %}
     <title>Question: {{ content.question.title }}</title>
@@ -11,7 +12,7 @@
     <link href="{% static "css/question.css" %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static "/css/rating_counter.css" %}">
     <link href="{% static "css/question_page.css" %}" rel="stylesheet">
-    <link rel="stylesheet" href="{% static "/css/sp_hottags_actusers.css" %}">
+    <link rel="stylesheet" href="{% static "/css/sidebar_right.css" %}">
 {% endblock custom_styles %}
 
 {% block content %}
@@ -31,20 +32,21 @@
     {% with content=content.answers %}
         {% include "inc/paginator.html" %}
     {% endwith %}
-
-    <div class="row answer your-answer">
-        <form action="">
-            <div class="row">
-                <div class="form-group">
-                    <label for="yourAnswer">Your answer:</label>
-                    <textarea class="form-control" id="yourAnswer" rows="3"></textarea>
+    {% if content.this_user.is_authenticated %}
+        <div class="row answer your-answer">
+            <form action="{% url "question" content.question.id %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="form-group">
+                        {% bootstrap_form content.answer_form %}
+                    </div>
                 </div>
-            </div>
-            <div class="row submit-your-answer">
-                <div class="col-3">
-                    <button type="submit" class="btn btn-primary">Submit!</button>
+                <div class="row submit-your-answer d-flex justify-content-center">
+                    <div class="col-5 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">Suggest!</button>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
+    {% endif %}
 {% endblock content %}

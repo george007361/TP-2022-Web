@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'app'
+    'app',
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = 'uploads/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+LOGIN_URL = '/login/'
+# LOGOUT_REDIRECT_URL = '/signup/'
+AUTH_USER_MODEL = 'app.Profile'

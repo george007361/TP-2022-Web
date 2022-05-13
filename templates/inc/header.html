@@ -27,27 +27,40 @@
                         <button class="btn btn-outline-success" type="button">Ask</button>
                     </a>
                 </div>
-            </div>
-            <div class="navbar-nav ms-auto nav-item">
-                <div class="row">
-                    <div class="col-4 ">
-                        <img src="{% static "/img/user-icon.png" %}" alt="" class="profile-icon">
-                    </div>
-                    <div class="col-8">
-                        <div class="row">
-                            <div class="navbar-text">Username</div>
-                        </div>
-                        <div class="row">
-                            <div class="row navbar-text">
-                                <div class="col-5 ">
-                                    <a href="{% url "settings" %}" class="a-control">Settings</a>
+                <div class="navbar-nav ms-auto nav-item">
+                    <div class="row">
+                        {% if request.user.is_authenticated %}
+                            <div class="row">
+                                <div class="col-5 justify-content-center">
+                                    <img src="{{ MEDIA_URL }}{{ content.this_user.avatar.url }}" alt="User avatar"
+                                         class="user-avatar">
                                 </div>
-                                <div class="col-1"></div>
-                                <div class="col-5  text-nowrap">
-                                    <a href="{% url "login" %}" class="a-control navbar-text">Log out</a>
+                                <div class="col-7">
+                                    <div class="row justify-content-center navbar-text">
+                                        {{ content.this_user.username }}
+                                    </div>
+                                    <div class="row navbar-text">
+                                        <div class="col-6 justify-content-center">
+                                            <a href="{% url "profile" %}" class="a-control navbar-text me-2">Profile</a>
+                                        </div>
+                                        <div class="col-6 justify-content-center">
+                                            <a href="{% url 'logout' %}" class="a-control navbar-text ms-2">Logout</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        {% else %}
+                            <div class="row">
+                                <div class="navbar-text d-flex justify-content-center">
+                                    You're not logged in
+                                </div>
+                                <div class="navbar-text d-flex justify-content-center">
+                                    <a href="{% url "login" %}"
+                                       class="a-control navbar-text">Please,
+                                        login</a>
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

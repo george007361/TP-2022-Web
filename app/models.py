@@ -1,25 +1,43 @@
-import django.contrib.auth.models
 import uuid
 from django.db import models
 from django.db.models import Count
 
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import UserManager
+
+from askmeGeorge import settings
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # Managers
+
+
 class QuestionManager(models.Manager):
+    def get_or_none(self, **kwargs):
+        try:
+            return self.all().get(**kwargs)
+        except ObjectDoesNotExist:
+            return None
+
     def latest_questions(self):
-        return self.all().order_by('-id')[0:5]
+        return self.all().order_by('-date')
 
     def top_questions(self):
-        return self.all().order_by('-likes')[0:5]
+        return self.all().order_by('-likes')
 
 
-class UsersManager(models.Manager):
+class ProfileManager(UserManager):
     def active_users(self):
         Profile.objects.all().annotate()
         return self.all().annotate(active=Count('answer')).order_by('-active')[:5]
+
+    def get_or_none(self, **kwargs):
+        try:
+            return self.all().get(**kwargs)
+        except ObjectDoesNotExist:
+            return None
 
 
 class TagManager(models.Manager):
@@ -66,7 +84,7 @@ def default_user_avatar_path():
 # Models
 class Answer(models.Model):
     question = models.ForeignKey('Question', on_delete=models.CASCADE, related_name='answer')
-    author = models.ForeignKey('Profile', on_delete=models.PROTECT, related_name='answer')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='answer')
 
     text = models.TextField()
 
@@ -82,12 +100,11 @@ class Answer(models.Model):
 class Question(models.Model):
     id = models.AutoField(primary_key=True, editable=False)
     u_id = models.UUIDField(default=uuid.uuid4, editable=False)
+    date = models.DateTimeField(auto_now_add=True, blank=True)
 
-    author = models.ForeignKey('Profile', on_delete=models.PROTECT, related_name='question')
-
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='question')
     title = models.CharField(max_length=256)
     text = models.TextField()
-    # image = models.ImageField(upload_to=question_directory_path, default=default_question_image_path)
     tags = models.ManyToManyField('Tag', related_name='tags')
 
     likes = GenericRelation('Like')
@@ -108,23 +125,19 @@ class Tag(models.Model):
         return ' '.join([self.name])
 
 
-class Profile(models.Model):
-    id = models.AutoField(primary_key=True, editable=False)
+class Profile(AbstractUser):
     u_id = models.UUIDField(default=uuid.uuid4, editable=False)
-
-    user = models.OneToOneField(django.contrib.auth.models.User, on_delete=models.CASCADE, related_name='profile')
-    nickname = models.CharField(max_length=256)
     avatar = models.ImageField(upload_to=user_avatar_directory_path, default=default_user_avatar_path)
 
-    objects = UsersManager()
+    objects = ProfileManager()
 
     def __str__(self):
-        return ' '.join([str(self.id), self.nickname])
+        return ' '.join([str(self.id), self.username])
 
 
 class Like(models.Model):
     counter = models.PositiveIntegerField(default=0)
-    users = models.ForeignKey('Profile', related_name='likes', on_delete=models.PROTECT)
+    users = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='likes', on_delete=models.PROTECT)
     content_type = models.OneToOneField(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveBigIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
@@ -135,7 +148,7 @@ class Like(models.Model):
 
 class Dislike(models.Model):
     counter = models.PositiveIntegerField(default=0)
-    users = models.ForeignKey('Profile', related_name='dislikes', on_delete=models.PROTECT)
+    users = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='dislikes', on_delete=models.PROTECT)
     content_type = models.OneToOneField(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveBigIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')

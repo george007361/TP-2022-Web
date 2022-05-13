@@ -24,21 +24,12 @@ class Command(BaseCommand):
 
         fake = Faker(["en_US"])
 
-        print('Creating users...')
-        names = []
-        for _ in range(params["USERS"]):
-            names.append(fake.unique.name())
-            new_user = django.contrib.auth.models.User(username=names[_])
-            new_user.save()
-
         print('Creating profiles...')
+        names = []
         profiles = []
         for _ in range(params["USERS"]):
-            profiles.append(Profile(nickname=names[_],
-                                    user=django.contrib.auth.models.User.objects.all().get(
-                                        username=names[_])
-                                    )
-                            )
+            names.append(fake.unique.name())
+            profiles.append(Profile(username=names[_], email=fake.email()))
         Profile.objects.bulk_create(profiles)
 
         print('Creating tags...')
@@ -54,7 +45,7 @@ class Command(BaseCommand):
                 Question(
                     title=fake.text(max_nb_chars=30),
                     text=fake.text(max_nb_chars=100),
-                    author=Profile.objects.all().get(nickname=random.choice(names))
+                    author=Profile.objects.all().get(username=random.choice(names))
                 )
             )
         Question.objects.bulk_create(questions)

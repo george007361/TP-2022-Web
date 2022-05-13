@@ -1,5 +1,6 @@
 {% extends "inc/base.html" %}
 {% load static %}
+{% load bootstrap4 %}
 
 {% block title %}
     <title>New Question</title>
@@ -7,49 +8,21 @@
 
 {% block custom_styles %}
     <link href="{% static "css/ask.css" %}" rel="stylesheet">
-    <link rel="stylesheet" href="{% static "/css/sp_hottags_actusers.css" %}">
+    <link rel="stylesheet" href="{% static "/css/sidebar_right.css" %}">
 {% endblock custom_styles %}
 
 {% block content %}
     <hr>
     <h2>New question</h2>
     <div class="row new-question-field">
-        <form>
+        <form action="{% url "ask" %}" method="post">
+            {% csrf_token %}
             <div class="row question-field">
-                <div class="col-3 new-question-field-title d-flex justify-content-end">
-                    Title:
-                </div>
-                <div class="col-9">
-                    <input type="email" class="form-control" id="title" placeholder="How to ...">
-                </div>
+                {% bootstrap_form content.ask_form %}
             </div>
-            <div class="row question-field">
-                <div class="col-3 new-question-field-text d-flex justify-content-end">
-                    Text:
-                </div>
-                <div class="col-9">
-                    <div class="form-group">
-                                    <textarea class="form-control" id="text" rows="3"
-                                              placeholder="I want..."></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="row question-field">
-                <div class="col-3 new-question-field-tags d-flex justify-content-end">
-                    Tags:
-                </div>
-                <div class="col-9">
-                    <input type="email" class="form-control" id="tags" placeholder="Help , ...">
-                </div>
-            </div>
-            <div class="row question-field">
-                <div class="row submit-your-answer">
-                    <div class="col-3 d-flex justify-content-end"></div>
-                    <div class="col-9">
-                        <div class="col-3">
-                            <button type="submit" class="btn btn-primary">Submit!</button>
-                        </div>
-                    </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-5 d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary">Submit!</button>
                 </div>
             </div>
         </form>

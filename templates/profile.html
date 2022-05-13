@@ -1,0 +1,65 @@
+{% extends "inc/base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block title %}
+    <title>Profile: {{ content.profile.username }}</title>
+{% endblock title %}
+
+{% block custom_styles %}
+    <link href="{% static "css/profile.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "/css/sidebar_right.css" %}">
+{% endblock custom_styles %}
+
+{% block content %}
+    <hr>
+    <div class="row">
+        <div class="col-2 d-flex justify-content-end">
+        </div>
+        <div class="col-10 d-flex justify-content-center">
+
+            {% if content.editable %}
+                <h2>Hello,</h2>
+            {% else %}
+                <h2>Profile:</h2>
+            {% endif %}
+            <h2 class="username">{{ content.profile.username }}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="row d-flex justify-content-center">
+            <div class="col-2 field-title d-flex justify-content-end">
+                Avatar:
+            </div>
+            <div class="col-10 d-flex justify-content-center">
+                <img src="{{ MEDIA_URL }}{{ content.profile.avatar.url }}" alt=""
+                class="avatar-user-preview"
+                id="avatar-preview">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2 field-title d-flex justify-content-end">
+                Email:
+            </div>
+            <div class="col-10 field-content d-flex justify-content-center">
+                {% if content.profile.email %}
+                    {{ content.profile.email }}
+                {% else %}
+                    Email does not set...
+                {% endif %}
+            </div>
+        </div>
+
+        {% if content.editable %}
+            <div class="row d-flex justify-content-center">
+                <div class="col-2"></div>
+                <div class="col-10 d-flex justify-content-center">
+                    <a href="{% url "settings" %}">
+                        <button type=button class=" btn btn-primary action-btn">Edit profile
+                        </button>
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %}

@@ -14,10 +14,19 @@
 }
 
 .note {
+    margin: 10px 0px;
     color: lightgray;
     font-size: 1em;
 }
 
 .note:hover {
     text-decoration: underline lightgray;
+}
+
+.avatar-user-preview {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border: solid gray;
+    border-radius: 8px;
 }

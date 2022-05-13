@@ -6,8 +6,8 @@
             <img src="{{ MEDIA_URL }}{{ question.author.avatar.url }}" alt="" class="avatar-question">
         </div>
         <div class="col-8">
-            <h3><a href="{% url "question" question.id %}" class="a-question">{{ question.title }}</a></h3>
-            <p>{{ question.text }}</p>
+            <h3><a href="{% url "question" question.id %}" class="a-question text-break">{{ question.title }}</a></h3>
+            <p class="text-break">{{ question.text }}</p>
         </div>
     </div>
     <hr>
