@@ -1,6 +1,7 @@
 {% load static %}
 
-<div class="row answer">
+<div class="row answer" id="{{ answer.id }}">
+{#    <a href="#{{ answer.id }}" hidden></a>#}
     <div class="row">
         <div class="col-4">
             <img src="{{ MEDIA_URL }}{{ answer.author.avatar.url }}" alt="" class="avatar-user">

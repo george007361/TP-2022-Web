@@ -16,37 +16,38 @@
 {% endblock custom_styles %}
 
 {% block content %}
+    <div class="question-and-answers-field">
+        {% with question=content.question %}
+            {% include "inc/question.html" %}
+        {% endwith %}
+        <br>
+        <hr>
+        <br>
+        <h2>Answers:</h2>
 
-    {% with question=content.question %}
-        {% include "inc/question.html" %}
-    {% endwith %}
-    <br>
-    <hr>
-    <br>
-    <h2>Answers:</h2>
+        {% for answer in content.answers %}
+            {% include "inc/answer.html" %}
+        {% endfor %}
 
-    {% for answer in content.answers %}
-        {% include "inc/answer.html" %}
-    {% endfor %}
-
-    {% with content=content.answers %}
-        {% include "inc/paginator.html" %}
-    {% endwith %}
-    {% if content.this_user.is_authenticated %}
-        <div class="row answer your-answer">
-            <form action="{% url "question" content.question.id %}" method="post">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="form-group">
-                        {% bootstrap_form content.answer_form %}
+        {% with content=content.answers %}
+            {% include "inc/paginator.html" %}
+        {% endwith %}
+        {% if content.this_user.is_authenticated %}
+            <div class="row answer your-answer">
+                <form action="{% url "question" content.question.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="form-group">
+                            {% bootstrap_form content.answer_form %}
+                        </div>
                     </div>
-                </div>
-                <div class="row submit-your-answer d-flex justify-content-center">
-                    <div class="col-5 d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary">Suggest!</button>
+                    <div class="row submit-your-answer d-flex justify-content-center">
+                        <div class="col-5 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary">Suggest!</button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
-    {% endif %}
+                </form>
+            </div>
+        {% endif %}
+    </div>
 {% endblock content %}

@@ -30,9 +30,9 @@ urlpatterns = [
     path('top/', views.top, name="top"),
     path('latest/', views.latest, name="latest"),
     path('ask/', views.ask, name="ask"),
-    path('tag/<str:i>', views.tag, name="tag"),
+    path('tag/<str:tag_name>', views.tag, name="tag"),
 
-    path('question/<int:i>', views.question, name="question"),
+    path('question/<int:question_id>', views.question, name="question"),
 
     path('profile/edit/', views.settings, name="settings"),
     path('profile/<str:profile_name>', views.profile, name="profile"),

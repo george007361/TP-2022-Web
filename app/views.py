@@ -27,12 +27,12 @@ def question_paginator(request, count, src):
     return additional
 
 
-def answer_paginator(request, count, i):
-    paginator = Paginator(Answer.objects.filter(question_id=i), count)
+def answer_paginator(request, count, question_id):
+    paginator = Paginator(Answer.objects.filter(question_id=question_id), count)
     page = request.GET.get('page')
     additional = {
-        'question': Question.objects.get_or_none(id=i),
-        'answers': paginator.get_page(page)
+        'question': Question.objects.get_or_none(id=question_id),
+        'answers': paginator.get_page(page) if page != 'last' else paginator.get_page(paginator.num_pages)
     }
 
     return additional
@@ -51,9 +51,9 @@ def index(request):
     return render(request, "index.html", {"content": content})
 
 
-def question(request, i: int):
+def question(request, question_id):
     content = def_content(request)
-    content.update(answer_paginator(request, 5, i))
+    content.update(answer_paginator(request, 5, question_id))
 
     if content['question'] is None:
         return render(request, "404page.html", {'content': def_content(request)})
@@ -67,7 +67,9 @@ def question(request, i: int):
                                                text=content['answer_form'].cleaned_data['text'],
                                                question=content['question'])
             new_answer.save()
-            return redirect(reverse("question", args=[content['question'].id]))
+            return redirect(
+                ('{}?page=last#' + str(new_answer.id)).format(
+                    reverse('question', args=[content['question'].id])))
 
     return render(request, "question_page.html", {"content": content})
 
@@ -86,10 +88,10 @@ def top(request):
     return render(request, "top.html", {"content": content})
 
 
-def tag(request, i: str):
+def tag(request, tag_name: str):
     content = def_content(request)
-    content.update(question_paginator(request, 8, Question.objects.filter(tags__name=i)))
-    content['tag'] = i
+    content.update(question_paginator(request, 8, Question.objects.filter(tags__name=tag_name)))
+    content['tag'] = tag_name
 
     return render(request, "tag.html",
                   {"content": content})
@@ -98,6 +100,7 @@ def tag(request, i: str):
 @login_required
 def ask(request):
     content = def_content(request)
+
     if request.method == 'GET':
         content['ask_form'] = AskForm()
     elif request.method == 'POST':
@@ -122,7 +125,8 @@ def ask(request):
 def profile(request, profile_name='None'):
     content = def_content(request)
     content['editable'] = False
-    if profile_name is 'None':
+
+    if profile_name == 'None':
         if content['this_user'] is not None:
             content['profile'] = content['this_user']
             content['editable'] = True
@@ -174,6 +178,8 @@ def settings(request):
                 auth.logout(request)
                 auth.login(request, content['this_user'])
 
+                return redirect(reverse("profile", args=[content['this_user'].username]))
+
         content['settings_form'] = form
     return render(request, "settings.html", {"content": content})
 
@@ -185,6 +191,9 @@ def logout(request):
 
 
 def login(request):
+    if request.user.is_authenticated:
+        return redirect(reverse("index"))
+
     content = def_content(request)
 
     if request.method == 'GET':
@@ -204,6 +213,9 @@ def login(request):
 
 
 def signup(request):
+    if request.user.is_authenticated:
+        return redirect(reverse("index"))
+
     content = def_content(request)
 
     if request.method == 'GET':
@@ -211,20 +223,18 @@ def signup(request):
     elif request.method == 'POST':
         form = RegisterForm(request.POST, request.FILES)
         if form.is_valid():
-            try:
-                user = Profile.objects.get(username=form.cleaned_data['username'])
+            new_profile, is_created = Profile.objects.get_or_create(username=form.cleaned_data['username'],
+                                                                    email=form.cleaned_data['email'],
+                                                                    password=form.cleaned_data['password'])
+            if not is_created:
                 form.add_error('username', "User already exists")
-            except Profile.DoesNotExist:
-                new_profile = Profile.objects.create_user(username=form.cleaned_data['username'],
-                                                          email=form.cleaned_data['email'],
-                                                          password=form.cleaned_data['password'])
-                new_profile.save()
+            else:
                 new_profile.avatar = request.FILES['avatar']
                 new_profile.save()
-
                 auth.login(request, new_profile)
 
                 return redirect(reverse('index'))
+
         content['register_form'] = form
 
     return render(request, "register.html", {"content": content})

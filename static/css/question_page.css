@@ -2,6 +2,11 @@
     display: none;
 }
 
+.question-and-answers-field {
+    scroll-behavior: smooth; /* <----- THE SECRET ---- */
+
+}
+
 .your-answer {
     margin-bottom: 8%;
 }
