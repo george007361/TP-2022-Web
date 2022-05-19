@@ -123,7 +123,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / "static/",
 ]
 
 # Default primary key field type
@@ -131,10 +131,13 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#Media files
+# Media files
 
-MEDIA_URL = 'uploads/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_ROOT = BASE_DIR / 'uploads/'
+MEDIA_URL = 'media/'
+
+# Auth settings
+
+AUTH_USER_MODEL = 'app.Profile'
 LOGIN_URL = '/login/'
 # LOGOUT_REDIRECT_URL = '/signup/'
-AUTH_USER_MODEL = 'app.Profile'

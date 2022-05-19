@@ -8,6 +8,7 @@
 {% block custom_styles %}
     <link rel="stylesheet" href="{% static "/css/sidebar_right.css" %}">
     <link rel="stylesheet" href="{% static "/css/question.css" %}">
+    <link rel="stylesheet" href="{% static "/css/paginator.css" %}" >
     <link rel="stylesheet" href="{% static "/css/rating_counter.css" %}">
 {% endblock custom_styles %}
 
@@ -17,8 +18,5 @@
             <h2>Latest questions</h2>
         </div>
     </div>
-
-    {% for question in content.questions %}
-        {% include "inc/question.html" %}
-    {% endfor %}
+    {% include "inc/questions_field.html" %}
 {% endblock content %}

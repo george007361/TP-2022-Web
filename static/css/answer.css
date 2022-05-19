@@ -2,6 +2,13 @@
     border: solid lightgray !important;
 }
 
+.no-answers{
+    border: 2px solid lightgray;
+    border-radius: 8px;
+    font-size: 1.5em;
+    color: gray;
+}
+
 .answer {
     border-radius: 10px;
     border: solid #efefef;

@@ -1,12 +1,11 @@
-import uuid
+import os
+
 from django.db import models
 from django.db.models import Count
-
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager
-
 from askmeGeorge import settings
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -65,19 +64,23 @@ class TagManager(models.Manager):
 
 # paths
 
-def question_directory_path(instance, filename):
-    return 'question_image/{0}/{1}'.format(str(instance.u_id), filename)
+def question_image_path(instance, filename):
+    return 'question_image/{0}/{1}'.format(str(instance.id), filename)
 
 
-def user_avatar_directory_path(instance, filename):
-    return 'user_avatars/{0}/{1}'.format(str(instance.u_id), filename)
+def user_avatar_path(instance, filename):
+    fname = 'user_avatars/{0}/{1}'.format(str(instance.id) + '_' + str(instance.username), filename)
+    fname_full = os.path.join(settings.MEDIA_ROOT, fname)
+    if os.path.exists(fname_full):
+        os.remove(fname_full)
+    return fname
 
 
-def default_question_image_path():
+def question_image_default_path():
     return 'question_image/default/default_image.jpg'
 
 
-def default_user_avatar_path():
+def user_avatar_default_path():
     return 'user_avatars/default/default_avatar.jpg'
 
 
@@ -99,7 +102,6 @@ class Answer(models.Model):
 
 class Question(models.Model):
     id = models.AutoField(primary_key=True, editable=False)
-    u_id = models.UUIDField(default=uuid.uuid4, editable=False)
     date = models.DateTimeField(auto_now_add=True, blank=True)
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='question')
@@ -126,8 +128,7 @@ class Tag(models.Model):
 
 
 class Profile(AbstractUser):
-    u_id = models.UUIDField(default=uuid.uuid4, editable=False)
-    avatar = models.ImageField(upload_to=user_avatar_directory_path, default=default_user_avatar_path)
+    avatar = models.ImageField(upload_to=user_avatar_path, default=user_avatar_default_path)
 
     objects = ProfileManager()
 

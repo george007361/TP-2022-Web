@@ -76,14 +76,14 @@ def question(request, question_id):
 
 def latest(request):
     content = def_content(request)
-    content['questions'] = Question.objects.latest_questions()[0:5]
+    content.update(question_paginator(request, 20, Question.objects.latest_questions()[0:5]))
 
     return render(request, "latest.html", {"content": content})
 
 
 def top(request):
     content = def_content(request)
-    content['questions'] = Question.objects.top_questions()[0:5]
+    content.update(question_paginator(request, 20, Question.objects.top_questions()[0:5]))
 
     return render(request, "top.html", {"content": content})
 

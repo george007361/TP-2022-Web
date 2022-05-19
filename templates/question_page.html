@@ -25,13 +25,20 @@
         <br>
         <h2>Answers:</h2>
 
-        {% for answer in content.answers %}
-            {% include "inc/answer.html" %}
-        {% endfor %}
+        {% if content.answers %}
+            {% for answer in content.answers %}
+                {% include "inc/answer.html" %}
+            {% endfor %}
 
-        {% with content=content.answers %}
-            {% include "inc/paginator.html" %}
-        {% endwith %}
+            {% with content=content.answers %}
+                {% include "inc/paginator.html" %}
+            {% endwith %}
+        {% else %}
+            <div class="row mt-4 mb-4 p-2 justify-content-center no-answers">
+                There is no answers... Be first!
+            </div>
+        {% endif %}
+
         {% if content.this_user.is_authenticated %}
             <div class="row answer your-answer">
                 <form action="{% url "question" content.question.id %}" method="post">
