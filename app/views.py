@@ -224,11 +224,11 @@ def signup(request):
         form = RegisterForm(request.POST, request.FILES)
         if form.is_valid():
             new_profile, is_created = Profile.objects.get_or_create(username=form.cleaned_data['username'],
-                                                                    email=form.cleaned_data['email'],
-                                                                    password=form.cleaned_data['password'])
+                                                                    email=form.cleaned_data['email'])
             if not is_created:
                 form.add_error('username', "User already exists")
             else:
+                new_profile.set_password(form.cleaned_data['password'])
                 new_profile.avatar = request.FILES['avatar']
                 new_profile.save()
                 auth.login(request, new_profile)
