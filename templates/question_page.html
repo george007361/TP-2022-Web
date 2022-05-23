@@ -27,7 +27,9 @@
 
         {% if content.answers %}
             {% for answer in content.answers %}
-                {% include "inc/answer.html" %}
+                {% with this_user=content.this_user %}
+                    {% include "inc/answer.html" %}
+                {% endwith %}
             {% endfor %}
 
             {% with content=content.answers %}

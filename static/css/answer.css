@@ -2,7 +2,7 @@
     border: solid lightgray !important;
 }
 
-.no-answers{
+.no-answers {
     border: 2px solid lightgray;
     border-radius: 8px;
     font-size: 1.5em;
@@ -25,4 +25,18 @@
 
 .answer-correct-checkbox-text {
     margin: 2px 5px;
+}
+
+.cb-correct-answer:disabled {
+    opacity: 1 !important;
+}
+
+.answer-correct-checkbox-text {
+    margin: 2px 5px;
+    opacity: 1 !important;
+}
+
+.author-name {
+    color: gray;
+    text-decoration: orange;
 }

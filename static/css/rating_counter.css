@@ -9,7 +9,8 @@
     box-shadow: 11px 11px 23px 0px rgba(34, 60, 80, 0.2);
 }
 
-.rating-counter {
+.btn-rate {
+    background-color: inherit;
     display: inline-block;
     color: #a2a1a1;
     border: solid lightgray;
@@ -18,10 +19,19 @@
     margin: 0px 2px;
 }
 
-.likes {
+.text-like {
     color: green;
 }
 
-.dislikes {
+.text-dislike {
     color: red;
 }
+
+.btn-rate.like.rated {
+    box-shadow: 0px 0px 10px green;
+}
+
+.btn-rate.dislike.rated {
+    box-shadow: 0px 0px 10px red;
+}
+

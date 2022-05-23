@@ -15,9 +15,9 @@
             </button>
 
             <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
-                <form class="d-flex w-auto">
+                <form class="d-flex w-auto" method="get" action="{% url 'search' %}">
                     <img src="{% static "/img/search.png" %}" alt="" class="search-icon">
-                    <input class="form-control me-2 search-form" type="search" placeholder="Search question"
+                    <input name="find" class="form-control me-2 search-form" type="text" placeholder="Search question"
                            aria-label="Search">
 
                     <button class="btn btn-outline-success" type="submit">Go!</button>

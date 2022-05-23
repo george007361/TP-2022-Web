@@ -2,10 +2,10 @@
     {% if content.questions %}
         {% for question in content.questions %}
             {% include "inc/question.html" %}
-            {% with content=content.questions %}
-                {% include "inc/paginator.html" %}
-            {% endwith %}
         {% endfor %}
+        {% with content=content.questions %}
+            {% include "inc/paginator.html" %}
+        {% endwith %}
     {% else %}
         <div class="row m-4 p-2 no-questions justify-content-center">
             There is no questions... Ask first!

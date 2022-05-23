@@ -1,11 +1,17 @@
+import json
+
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.contrib import auth
 from django.urls import reverse
+from django.views.decorators.http import require_POST, require_GET
+
 from .models import *
 from .forms import *
+from django.http import JsonResponse
+from django.db.models import Q
 
 
 def def_content(request):
@@ -82,6 +88,8 @@ def latest(request):
 
 
 def top(request):
+    print(Question.objects.top_questions())
+
     content = def_content(request)
     content.update(question_paginator(request, 20, Question.objects.top_questions()[0:5]))
 
@@ -199,7 +207,7 @@ def login(request):
     if request.method == 'GET':
         content['login_form'] = LoginForm()
     elif request.method == 'POST':
-        form = LoginForm(data=request.POST)
+        form = LoginForm(request.POST)
         if form.is_valid():
             user = auth.authenticate(**form.cleaned_data)
             if user:
@@ -224,12 +232,14 @@ def signup(request):
         form = RegisterForm(request.POST, request.FILES)
         if form.is_valid():
             new_profile, is_created = Profile.objects.get_or_create(username=form.cleaned_data['username'],
-                                                                    email=form.cleaned_data['email'],
-                                                                    password=form.cleaned_data['password'])
+                                                                    email=form.cleaned_data['email'])
             if not is_created:
                 form.add_error('username', "User already exists")
             else:
-                new_profile.avatar = request.FILES['avatar']
+                new_profile.set_password(form.cleaned_data['password'])
+                file = request.FILES.get('avatar', False)
+                if file:
+                    new_profile.avatar = file
                 new_profile.save()
                 auth.login(request, new_profile)
 
@@ -238,3 +248,66 @@ def signup(request):
         content['register_form'] = form
 
     return render(request, "register.html", {"content": content})
+
+
+# @login_required
+@require_POST
+def rate(request):
+    data = json.loads(request.body)
+    user = request.user
+    if not user.is_authenticated:
+        return JsonResponse({'code': 'FAIL'})
+
+    if data.get('obj_name', False) == 'question':
+        obj = Question.objects.get_or_none(id=data.get('obj_id', -1))
+        if obj is None:
+            return JsonResponse({'code': 'FAIL'})
+
+    elif data.get('obj_name', False) == 'answer':
+        obj = Answer.objects.get_or_none(id=data.get('obj_id', -1))
+        if obj is None:
+            return JsonResponse({'code': 'FAIL'})
+
+    if data.get('action_name', False) == 'like':
+        action = Rating.LIKE
+    elif data.get('action_name', False) == 'dislike':
+        action = Rating.DISLIKE
+    else:
+        return JsonResponse({'code': 'FAIL'})
+
+    rating, created = Rating.objects.update_rating(obj, user, action)
+
+    return JsonResponse(
+        {'code': 'OK',
+         'selection': rating.rating,
+         'likes_count': obj.rating.get_likes().count(),
+         'dislikes_count': obj.rating.get_dislikes().count()
+         }
+    )
+
+
+# @login_required
+@require_POST
+def answer_correct(request):
+    user = request.user
+
+    if not user.is_authenticated:
+        return JsonResponse({'code': 'FAIL'})
+
+    answer_id = request.POST.get('answer_id', -1)
+    ans = Answer.objects.get_or_none(id=answer_id)
+
+    if ans.author == user:
+        ans.isCorrect = not ans.isCorrect
+        ans.save()
+
+    return JsonResponse({'cb_status': ans.isCorrect})
+
+
+@require_GET
+def search(request):
+    content = def_content(request)
+    result = Question.objects.all().filter(
+        Q(text__icontains=request.GET.get('find', None)) | Q(title__icontains=request.GET.get('find', None)))
+    content.update(question_paginator(request, 20, result))
+    return render(request, "search.html", {'content': content})

@@ -36,7 +36,13 @@ urlpatterns = [
 
     path('profile/edit/', views.settings, name="settings"),
     path('profile/<str:profile_name>', views.profile, name="profile"),
-    path('profile/', views.profile, name="profile")
+    path('profile/', views.profile, name="profile"),
+
+    path('rate/', views.rate, name='rate'),
+
+    path('answer-correct/', views.answer_correct, name='answer_correct'),
+
+    path('search/', views.search, name='search')
 ]
 
 handler404 = "app.views.page_not_found_view"

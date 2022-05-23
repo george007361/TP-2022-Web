@@ -45,3 +45,12 @@
 .answers-counter {
     color: #8c8a8a;
 }
+
+.author-name{
+    color: black;
+    text-decoration: underline gray;
+}
+
+.date{
+    color: gray;
+}

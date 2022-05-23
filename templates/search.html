@@ -1,0 +1,29 @@
+{% extends "inc/base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Askme George: Search</title>
+{% endblock title %}
+
+{% block custom_styles %}
+    <link rel="stylesheet" href="{% static "/css/sidebar_right.css" %}">
+    <link rel="stylesheet" href="{% static "/css/question.css" %}">
+    <link rel="stylesheet" href="{% static "/css/rating_counter.css" %}">
+    <link rel="stylesheet" href="{% static "/css/paginator.css" %}">
+{% endblock custom_styles %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-6">
+            <h2>Search results:</h2>
+        </div>
+    </div>
+
+    {% for question in content.questions %}
+        {% include "inc/question.html" %}
+    {% endfor %}
+
+    {% with content=content.questions %}
+        {% include "inc/paginator.html" %}
+    {% endwith %}
+{% endblock content %}

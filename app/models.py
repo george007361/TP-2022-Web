@@ -1,11 +1,9 @@
 import os
-
 from django.db import models
-from django.db.models import Count
+from django.db.models import Count, Sum
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.models import UserManager
+from django.contrib.auth.models import AbstractUser, UserManager
 from askmeGeorge import settings
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -24,7 +22,26 @@ class QuestionManager(models.Manager):
         return self.all().order_by('-date')
 
     def top_questions(self):
-        return self.all().order_by('-likes')
+        questions = self.all()
+        questions_with_rating = []
+        for question in questions:
+            rating = question.rating.get_rating()
+            questions_with_rating.append({'question': question, 'rating': rating})
+        question_with_rating_sorted = sorted(questions_with_rating, key=lambda x: x['rating'], reverse=True)
+        list_of_q = []
+        for i in range(0, len(question_with_rating_sorted)):
+            item = question_with_rating_sorted[i]
+            list_of_q.append(item['question'])
+
+        return list_of_q
+
+
+class AnswerManager(models.Manager):
+    def get_or_none(self, **kwargs):
+        try:
+            return self.all().get(**kwargs)
+        except ObjectDoesNotExist:
+            return None
 
 
 class ProfileManager(UserManager):
@@ -44,22 +61,35 @@ class TagManager(models.Manager):
         return self.all().annotate(popular=Count('tags')).order_by('-popular')[:5]
 
 
-# class LikeManager(models.Manager):
-#     def add_like(self):
-#         """Лайкает `obj`.
-#         """
-#         obj_type = ContentType.objects.get_for_model(obj)
-#         like, is_created = Like.objects.get_or_create(
-#             content_type=obj_type, object_id=obj.id, user=user)
-#         return like
-#
-#     def remove_like(obj, user):
-#         """Удаляет лайк с `obj`.
-#         """
-#         obj_type = ContentType.objects.get_for_model(obj)
-#         Like.objects.filter(
-#             content_type=obj_type, object_id=obj.id, user=user
-#         ).delete()
+class RatingManager(models.Manager):
+
+    def get_likes(self):
+        return self.all().filter(rating__gt=0)
+
+    def get_dislikes(self):
+        return self.all().filter(rating__lt=0)
+
+    def get_rating(self):
+        return self.all().aggregate(Sum('rating')).get('rating__sum') or 0
+
+    @staticmethod
+    def update_rating(obj, user, rating_type):
+        rating = None
+        created = None
+        try:
+            rating = Rating.objects.get(content_type=ContentType.objects.get_for_model(obj), object_id=obj.id,
+                                        user=user)
+            created = False
+            if rating.rating != rating_type:
+                rating.rating = rating_type
+            else:
+                rating.rating = 0
+            rating.save()
+        except Rating.DoesNotExist:
+            rating = Rating.objects.create(user=user, content_object=obj, rating=rating_type)
+            created = True
+
+        return rating, created
 
 
 # paths
@@ -93,8 +123,10 @@ class Answer(models.Model):
 
     isCorrect = models.BooleanField(default=False)
 
-    likes = GenericRelation('Like')
-    dislikes = GenericRelation('Dislike')
+    rating = GenericRelation('Rating')
+    date = models.DateTimeField(auto_now_add=True, blank=True)
+
+    objects = AnswerManager()
 
     def __str__(self):
         return ' '.join([str(self.id), self.text[:10]])
@@ -109,8 +141,7 @@ class Question(models.Model):
     text = models.TextField()
     tags = models.ManyToManyField('Tag', related_name='tags')
 
-    likes = GenericRelation('Like')
-    dislikes = GenericRelation('Dislike')
+    rating = GenericRelation('Rating')
 
     objects = QuestionManager()
 
@@ -136,23 +167,23 @@ class Profile(AbstractUser):
         return ' '.join([str(self.id), self.username])
 
 
-class Like(models.Model):
-    counter = models.PositiveIntegerField(default=0)
-    users = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='likes', on_delete=models.PROTECT)
-    content_type = models.OneToOneField(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveBigIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
+class Rating(models.Model):
+    LIKE = 1
+    DISLIKE = -1
+
+    VOTES = (
+        (DISLIKE, 'Like'),
+        (LIKE, 'Dislike')
+    )
+
+    rating = models.IntegerField(choices=VOTES)
+    user = models.ForeignKey(Profile, on_delete=models.PROTECT)
+
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey()
+
+    objects = RatingManager()
 
     def __str__(self):
-        return ' '.join(str(self.object_id), str(self.counter))
-
-
-class Dislike(models.Model):
-    counter = models.PositiveIntegerField(default=0)
-    users = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='dislikes', on_delete=models.PROTECT)
-    content_type = models.OneToOneField(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveBigIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
-
-    def __str__(self):
-        return ' '.join(str(self.object_id), str(self.counter))
+        return ' '.join([str(self.id), str(self.content_object.__str__()), str(self.rating)])
