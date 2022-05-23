@@ -40,8 +40,8 @@ $(".btn-rate").on('click', function (event) {
         const result = response.json().then(function (parsed) {
             if (parsed.code == 'FAIL')
                 return;
-            var like_btn = $(".btn-rate[data-obj_id='" + $this.data('obj_id') + "'][data-obj_name='" + $this.data('obj_name') + "'][data-action_name='like']");
-            var dislike_btn = $(".btn-rate[data-obj_id='" + $this.data('obj_id') + "'][data-obj_name='" + $this.data('obj_name') + "'][data-action_name='dislike']");
+            let like_btn = $(".btn-rate[data-obj_id='" + $this.data('obj_id') + "'][data-obj_name='" + $this.data('obj_name') + "'][data-action_name='like']");
+            let dislike_btn = $(".btn-rate[data-obj_id='" + $this.data('obj_id') + "'][data-obj_name='" + $this.data('obj_name') + "'][data-action_name='dislike']");
             if (parsed.selection == 1) {
                 like_btn.addClass('rated');
                 dislike_btn.removeClass('rated');
