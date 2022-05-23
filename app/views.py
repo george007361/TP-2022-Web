@@ -20,6 +20,7 @@ def def_content(request):
         "popular_tags": Tag.objects.popular_tags,
         "this_user": Profile.objects.get_or_none(username=request.user.username)
     }
+
     return content
 
 
@@ -88,8 +89,6 @@ def latest(request):
 
 
 def top(request):
-    print(Question.objects.top_questions())
-
     content = def_content(request)
     content.update(question_paginator(request, 20, Question.objects.top_questions()[0:5]))
 
@@ -307,7 +306,14 @@ def answer_correct(request):
 @require_GET
 def search(request):
     content = def_content(request)
+    search_request = request.GET.get('find', None)
+
+    if search_request is None or search_request == '':
+        return redirect(reverse("index"))
+
     result = Question.objects.all().filter(
-        Q(text__icontains=request.GET.get('find', None)) | Q(title__icontains=request.GET.get('find', None)))
+        Q(text__icontains=search_request) | Q(title__icontains=search_request))
+
     content.update(question_paginator(request, 20, result))
+
     return render(request, "search.html", {'content': content})
