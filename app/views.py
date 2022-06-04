@@ -192,8 +192,9 @@ def settings(request):
 
 
 def logout(request):
+    print('logout')
     auth.logout(request)
-
+    print(request.META.get('HTTP_REFERER'), request.user.is_authenticated)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 

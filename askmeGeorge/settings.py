@@ -23,10 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ni3au=j-bql=)v*urmh@!d$6$7tqfm$=1qr0a66czb9mck#@3o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-HOST = '127.0.0.1'
-PORT = '8000'
-ALLOWED_HOSTS = [HOST]
+DEBUG = False
+# HOST = '127.0.0.1'
+# PORT = '8000'
+ALLOWED_HOSTS = ['127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8070", "http://127.0.0.1:8071", "http://askme.george.ru:8070"]
+CSRF_COOKIE_HTTPONLY = False
 #
 # DEBUG = False
 # ALLOWED_HOSTS = ['127.0.0.1']
@@ -83,8 +85,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'askmeMini',
         # 'NAME': 'askmeGeorge',
-        'USER': 'su',
-        'PASSWORD': '123',
+        'USER': 'admin',
+        'PASSWORD': 'admin',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -124,9 +126,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static/",
-]
+STATIC_ROOT = BASE_DIR / 'static/'
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static/",
+# ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
