@@ -249,7 +249,6 @@ def signup(request):
     return render(request, "register.html", {"content": content})
 
 
-# @login_required
 @require_POST
 def rate(request):
     data = json.loads(request.body)
