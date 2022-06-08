@@ -7,6 +7,9 @@ from django.contrib.auth.models import AbstractUser, UserManager
 from askmeGeorge import settings
 from django.core.exceptions import ObjectDoesNotExist
 
+from dateutil.relativedelta import relativedelta
+from django.utils.timezone import now
+
 
 # Managers
 
@@ -45,9 +48,10 @@ class AnswerManager(models.Manager):
 
 
 class ProfileManager(UserManager):
-    def active_users(self):
+    def active_users(self, count):
         Profile.objects.all().annotate()
-        return self.all().annotate(active=Count('answer')).order_by('-active')[:5]
+        # return self.all().annotate(active=Count('answer') + Count('question')).order_by('-active')[:count]
+        return self.all().annotate(active=Count('answer') + Count('question')).order_by('-active')[:count]
 
     def get_or_none(self, **kwargs):
         try:
@@ -57,8 +61,9 @@ class ProfileManager(UserManager):
 
 
 class TagManager(models.Manager):
-    def popular_tags(self):
-        return self.all().annotate(popular=Count('tags')).order_by('-popular')[:5]
+    def popular_tags(self, count):
+        return self.all().filter(tags__date__gte=now() - relativedelta(months=3)).annotate(popular=Count('tags')).order_by('-popular')[:count]
+        # return self.all().annotate(popular=Count('tags')).order_by('-popular')[:count]
 
 
 class RatingManager(models.Manager):

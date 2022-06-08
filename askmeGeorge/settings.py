@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ni3au=j-bql=)v*urmh@!d$6$7tqfm$=1qr0a66czb9mck#@3o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 # HOST = '127.0.0.1'
 # PORT = '8000'
 ALLOWED_HOSTS = ['127.0.0.1']
@@ -126,10 +126,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = BASE_DIR / 'static/'
-# STATICFILES_DIRS = [
-#     BASE_DIR / "static/",
-# ]
+# STATIC_ROOT = BASE_DIR / 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static/",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -146,3 +146,14 @@ MEDIA_URL = 'media/'
 AUTH_USER_MODEL = 'app.Profile'
 LOGIN_URL = '/login/'
 # LOGOUT_REDIRECT_URL = '/signup/'
+
+
+CENTRIFUGO_API_KEY = '21c133bc-8154-450a-b35c-137db599890b'
+CENTRIFUGO_SECRET_KEY = '67767160-630b-414f-9a1f-b9a64a23dd59'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/django_cache',
+    }
+}

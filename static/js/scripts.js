@@ -16,8 +16,11 @@ function getCookie(name) {
 
 const csrftoken = getCookie('csrftoken');
 
-$(".btn-rate").on('click', function (event) {
-    const $this = $(this);
+function rate(event, that)
+{
+    console.log("clicked");
+    const $this = $(that);
+    console.log($this);
     const request = new Request(
         '/rate/',
         {
@@ -56,10 +59,11 @@ $(".btn-rate").on('click', function (event) {
             dislike_btn.children("val").text(parsed.dislikes_count);
         });
     })
-})
+}
 
-$(".cb-correct-answer").on('click', function (event) {
-    const $this = $(this);
+function answer_correct(event, that)
+{
+    const $this = $(that);
     const request = new Request(
         '/answer-correct/',
         {
@@ -77,4 +81,12 @@ $(".cb-correct-answer").on('click', function (event) {
             $this.prop("checked", parsed.cb_status)
         });
     })
+}
+
+$(document).on('click', '.btn-rate', function (event){
+    rate(event, this);
+});
+
+$(document).on('click', '.cb-correct-answer', function (event){
+    answer_correct(event, this);
 })

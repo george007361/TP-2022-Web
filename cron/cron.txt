@@ -1,0 +1,2 @@
+crontab -l
+* * * * * source ~/Desktop/Web/HW1_T7/venv/bin/activate && python ~/Desktop/Web/HW1_T7/manage.py fill_askmeGeorgeApp_cache

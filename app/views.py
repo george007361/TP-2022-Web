@@ -1,23 +1,29 @@
 import json
+import jwt
 
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.views.decorators.http import require_POST, require_GET
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.contrib import auth
 from django.urls import reverse
-from django.views.decorators.http import require_POST, require_GET
 
 from .models import *
 from .forms import *
-from django.http import JsonResponse
 from django.db.models import Q
+from django.conf import settings as app_settings
+
+from cent import Client
+from django.core.cache import cache
+
+client = Client("http://127.0.0.1:8000/api", api_key=app_settings.CENTRIFUGO_API_KEY, timeout= 1)
 
 
 def def_content(request):
     content = {
-        "active_users": Profile.objects.active_users,
-        "popular_tags": Tag.objects.popular_tags,
+        "active_users": cache.get('active_users'),
+        "popular_tags": cache.get('popular_tags'),
         "this_user": Profile.objects.get_or_none(username=request.user.username)
     }
 
@@ -65,6 +71,10 @@ def question(request, question_id):
     if content['question'] is None:
         return render(request, "404page.html", {'content': def_content(request)})
 
+    if content['this_user'] is not None and content['this_user'].is_authenticated:
+        content['cent_token'] = jwt.encode({"sub": str(content['this_user'].id)}, app_settings.CENTRIFUGO_SECRET_KEY)
+        content['cent_chan'] = f'question_{question_id}'
+
     if request.method == 'GET':
         content['answer_form'] = AnswerForm()
     elif request.method == 'POST':
@@ -74,6 +84,18 @@ def question(request, question_id):
                                                text=content['answer_form'].cleaned_data['text'],
                                                question=content['question'])
             new_answer.save()
+            data = {'answer_id': new_answer.id,
+                    'question_id': new_answer.question_id,
+                    'text': new_answer.text,
+                    'author_name':new_answer.author.username,
+                    'author_avatar': new_answer.author.avatar.url,
+                    'is_corrent': new_answer.isCorrect,
+                    'date': new_answer.date.strftime("%d.%m.%Y %H:%M"),
+                    'likes': new_answer.rating.get_likes().count(),
+                    'dislikes': new_answer.rating.get_dislikes().count()
+                    }
+            client.publish(f'question_{question_id}', data)
+
             return redirect(
                 ('{}?page=last#' + str(new_answer.id)).format(
                     reverse('question', args=[content['question'].id])))
@@ -90,7 +112,7 @@ def latest(request):
 
 def top(request):
     content = def_content(request)
-    content.update(question_paginator(request, 20, Question.objects.top_questions()[0:5]))
+    content.update(question_paginator(request, 20, cache.get('top_questions')[0:5]))
 
     return render(request, "top.html", {"content": content})
 

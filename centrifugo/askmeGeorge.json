@@ -1,0 +1,10 @@
+{
+  "token_hmac_secret_key": "67767160-630b-414f-9a1f-b9a64a23dd59",
+  "admin_password": "41780a5d-a3df-4278-9a6f-c7561899f48a",
+  "admin_secret": "e81db186-6cc8-412f-90a8-f449f3e0773d",
+  "api_key": "21c133bc-8154-450a-b35c-137db599890b",
+  "log_level": "debug",
+  "allowed_origins": [
+    "http://127.0.0.1:9090"
+  ]
+}
